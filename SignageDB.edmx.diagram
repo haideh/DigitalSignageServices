@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="cc0d111f71df49a6946dd541923760ad" Name="Diagram1" ZoomLevel="86">
+        <EntityTypeShape EntityType="DigitalSignageDBModel.DS_AdItems" Width="1.5" PointX="3" PointY="23.375" />
+        <EntityTypeShape EntityType="DigitalSignageDBModel.DS_Ads" Width="1.5" PointX="0.75" PointY="23.5" />
+        <EntityTypeShape EntityType="DigitalSignageDBModel.DS_Alarms" Width="1.5" PointX="0.75" PointY="4.875" />
+        <EntityTypeShape EntityType="DigitalSignageDBModel.DS_Company" Width="1.5" PointX="12.75" PointY="7.75" />
+        <EntityTypeShape EntityType="DigitalSignageDBModel.DS_ContentAds" Width="1.5" PointX="3" PointY="14" />
+        <EntityTypeShape EntityType="DigitalSignageDBModel.DS_Contents" Width="1.5" PointX="0.75" PointY="14.625" />
+        <EntityTypeShape EntityType="DigitalSignageDBModel.DS_ContentTypes" Width="1.5" PointX="1.5" PointY="20" />
+        <EntityTypeShape EntityType="DigitalSignageDBModel.DS_LivePrograms" Width="1.5" PointX="3" PointY="10" />
+        <EntityTypeShape EntityType="DigitalSignageDBModel.DS_Lives" Width="1.5" PointX="0.75" PointY="11" />
+        <EntityTypeShape EntityType="DigitalSignageDBModel.DS_Maps" Width="1.5" PointX="5.75" PointY="14.625" />
+        <EntityTypeShape EntityType="DigitalSignageDBModel.DS_News" Width="1.5" PointX="12.75" PointY="11.25" />
+        <EntityTypeShape EntityType="DigitalSignageDBModel.DS_StoreCategories" Width="1.5" PointX="5.75" PointY="10.75" />
+        <EntityTypeShape EntityType="DigitalSignageDBModel.DS_StoreEvents" Width="1.5" PointX="10.25" PointY="10.5" />
+        <EntityTypeShape EntityType="DigitalSignageDBModel.DS_Stores" Width="1.5" PointX="8" PointY="9.5" />
+        <EntityTypeShape EntityType="DigitalSignageDBModel.DS_TVCategories" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="DigitalSignageDBModel.DS_TVContentAds" Width="1.5" PointX="5.25" PointY="4.625" />
+        <EntityTypeShape EntityType="DigitalSignageDBModel.DS_TVContents" Width="1.5" PointX="8.25" PointY="4.25" />
+        <EntityTypeShape EntityType="DigitalSignageDBModel.DS_TVs" Width="1.5" PointX="3" PointY="3.75" />
+        <EntityTypeShape EntityType="DigitalSignageDBModel.DS_Users" Width="1.5" PointX="15" PointY="7.375" />
+        <EntityTypeShape EntityType="DigitalSignageDBModel.DS_VideoCategories" Width="1.5" PointX="10.75" PointY="3" />
+        <EntityTypeShape EntityType="DigitalSignageDBModel.DS_Videos" Width="1.5" PointX="13" PointY="2.5" />
+        <AssociationConnector Association="DigitalSignageDBModel.FK_DS_AdItems_DS_Ads" />
+        <AssociationConnector Association="DigitalSignageDBModel.FK_DS_ContentAds_DS_Ads" />
+        <AssociationConnector Association="DigitalSignageDBModel.FK_DS_TVs_DS_Alarms" />
+        <AssociationConnector Association="DigitalSignageDBModel.FK_DS_Users_DS_Company" />
+        <AssociationConnector Association="DigitalSignageDBModel.FK_DS_ContentAds_DS_Contents" />
+        <AssociationConnector Association="DigitalSignageDBModel.FK_DS_ContentAds_DS_Lives" />
+        <AssociationConnector Association="DigitalSignageDBModel.FK_DS_TVContentAds_DS_ContentAds" />
+        <AssociationConnector Association="DigitalSignageDBModel.FK_DS_Contents_DS_ContentTypes" />
+        <AssociationConnector Association="DigitalSignageDBModel.FK_DS_TVContents_DS_Contents" />
+        <AssociationConnector Association="DigitalSignageDBModel.FK_DS_LivePrograms_DS_Lives" />
+        <AssociationConnector Association="DigitalSignageDBModel.FK_DS_Stores_DS_Maps" />
+        <AssociationConnector Association="DigitalSignageDBModel.FK_DS_Stores_DS_StoreCategories" />
+        <AssociationConnector Association="DigitalSignageDBModel.FK_DS_StoreEvents_DS_Stores" />
+        <AssociationConnector Association="DigitalSignageDBModel.FK_DS_TVs_DS_TVCategories" />
+        <AssociationConnector Association="DigitalSignageDBModel.FK_DS_TVContentAds_DS_TVs" />
+        <AssociationConnector Association="DigitalSignageDBModel.FK_DS_TVContents_DS_TVs" />
+        <AssociationConnector Association="DigitalSignageDBModel.FK_DS_Videos_DS_VideoCategories" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

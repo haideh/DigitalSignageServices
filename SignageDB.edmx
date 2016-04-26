@@ -1,0 +1,1576 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="DigitalSignageDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="DS_AdItems">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ad_id" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="title" Type="nvarchar" MaxLength="200" />
+          <Property Name="file_name" Type="nvarchar" MaxLength="50" />
+          <Property Name="description" Type="nvarchar" MaxLength="2000" />
+          <Property Name="status" Type="smallint" />
+          <Property Name="type" Type="smallint" />
+          <Property Name="minutes" Type="int" />
+          <Property Name="datetime" Type="bigint" />
+          <Property Name="companyId" Type="numeric" Precision="18" Scale="0" />
+        </EntityType>
+        <EntityType Name="DS_Ads">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="title" Type="nvarchar" MaxLength="200" />
+          <Property Name="status" Type="smallint" />
+          <Property Name="type" Type="smallint" />
+          <Property Name="max_minutes" Type="int" />
+          <Property Name="passed_minutes" Type="int" />
+          <Property Name="companyId" Type="numeric" Precision="18" Scale="0" />
+        </EntityType>
+        <EntityType Name="DS_Alarms">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="message" Type="nvarchar(max)" />
+          <Property Name="status" Type="smallint" />
+          <Property Name="type" Type="smallint" />
+          <Property Name="companyId" Type="numeric" Precision="18" Scale="0" />
+        </EntityType>
+        <EntityType Name="DS_Company">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="companyName" Type="nvarchar" MaxLength="200" />
+          <Property Name="description" Type="nvarchar" MaxLength="1000" />
+        </EntityType>
+        <EntityType Name="DS_ContentAds">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="content_id" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="ad_id" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="live_id" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="interval" Type="int" />
+          <Property Name="position" Type="smallint" />
+          <Property Name="type" Type="smallint" />
+          <Property Name="status" Type="smallint" />
+          <Property Name="createDateTime" Type="bigint" />
+          <Property Name="description" Type="nvarchar(max)" />
+          <Property Name="shuffle" Type="tinyint" />
+          <Property Name="secondViewed" Type="int" />
+          <Property Name="companyId" Type="numeric" Precision="18" Scale="0" />
+        </EntityType>
+        <EntityType Name="DS_Contents">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="contentType_id" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="title" Type="nvarchar" MaxLength="200" />
+          <Property Name="description" Type="nvarchar" MaxLength="2000" />
+          <Property Name="datetime" Type="bigint" />
+          <Property Name="status" Type="smallint" />
+          <Property Name="type" Type="smallint" />
+          <Property Name="companyId" Type="numeric" Precision="18" Scale="0" />
+        </EntityType>
+        <EntityType Name="DS_ContentTypes">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="title" Type="nvarchar" MaxLength="50" />
+          <Property Name="file_name" Type="nvarchar" MaxLength="50" />
+          <Property Name="body" Type="nvarchar(max)" />
+          <Property Name="status" Type="smallint" />
+          <Property Name="type" Type="smallint" />
+          <Property Name="companyId" Type="numeric" Precision="18" Scale="0" />
+        </EntityType>
+        <EntityType Name="DS_LivePrograms">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="live_id" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="startDate" Type="bigint" />
+          <Property Name="endDate" Type="bigint" />
+          <Property Name="title" Type="nvarchar" MaxLength="200" />
+          <Property Name="description" Type="nvarchar" MaxLength="2000" />
+          <Property Name="status" Type="smallint" />
+          <Property Name="type" Type="smallint" />
+          <Property Name="companyId" Type="numeric" Precision="18" Scale="0" />
+        </EntityType>
+        <EntityType Name="DS_Lives">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="title" Type="nvarchar" MaxLength="200" />
+          <Property Name="url" Type="nvarchar" MaxLength="200" />
+          <Property Name="status" Type="smallint" />
+          <Property Name="type" Type="smallint" />
+          <Property Name="description" Type="nvarchar" MaxLength="2000" />
+          <Property Name="channel" Type="nvarchar" MaxLength="50" />
+          <Property Name="companyId" Type="numeric" Precision="18" Scale="0" />
+        </EntityType>
+        <EntityType Name="DS_Maps">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="title" Type="nvarchar" MaxLength="50" />
+          <Property Name="floor" Type="smallint" />
+          <Property Name="image" Type="nvarchar" MaxLength="50" />
+          <Property Name="status" Type="smallint" />
+          <Property Name="type" Type="smallint" />
+          <Property Name="companyId" Type="numeric" Precision="18" Scale="0" />
+        </EntityType>
+        <EntityType Name="DS_News">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="title" Type="nvarchar" MaxLength="3000" />
+          <Property Name="description" Type="nvarchar(max)" />
+          <Property Name="status" Type="smallint" />
+          <Property Name="type" Type="smallint" />
+          <Property Name="date" Type="int" />
+          <Property Name="time" Type="int" />
+          <Property Name="companyId" Type="numeric" Precision="18" Scale="0" />
+        </EntityType>
+        <EntityType Name="DS_StoreCategories">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="title" Type="nvarchar" MaxLength="50" />
+          <Property Name="image" Type="nvarchar" MaxLength="50" />
+          <Property Name="status" Type="smallint" />
+          <Property Name="type" Type="smallint" />
+          <Property Name="companyId" Type="numeric" Precision="18" Scale="0" />
+        </EntityType>
+        <EntityType Name="DS_StoreEvents">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="store_id" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="title" Type="nvarchar" MaxLength="50" />
+          <Property Name="description" Type="nvarchar(max)" />
+          <Property Name="image" Type="nvarchar" MaxLength="50" />
+          <Property Name="status" Type="smallint" />
+          <Property Name="type" Type="smallint" />
+          <Property Name="date" Type="int" />
+          <Property Name="companyId" Type="numeric" Precision="18" Scale="0" />
+        </EntityType>
+        <EntityType Name="DS_Stores">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="category_id" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="map_id" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="title" Type="nvarchar" MaxLength="200" />
+          <Property Name="description" Type="nvarchar" MaxLength="2000" />
+          <Property Name="unit" Type="int" />
+          <Property Name="phone1" Type="nvarchar" MaxLength="50" />
+          <Property Name="phone2" Type="nvarchar" MaxLength="50" />
+          <Property Name="status" Type="smallint" />
+          <Property Name="type" Type="smallint" />
+          <Property Name="x" Type="int" />
+          <Property Name="y" Type="int" />
+          <Property Name="image" Type="nvarchar" MaxLength="50" />
+          <Property Name="startWorkTime" Type="nvarchar" MaxLength="50" />
+          <Property Name="endWorkTime" Type="nvarchar" MaxLength="50" />
+          <Property Name="workingDay" Type="nvarchar" MaxLength="50" />
+          <Property Name="companyId" Type="numeric" Precision="18" Scale="0" />
+        </EntityType>
+        <EntityType Name="DS_TVCategories">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="parent_id" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="title" Type="nvarchar" MaxLength="200" />
+          <Property Name="status" Type="smallint" />
+          <Property Name="type" Type="smallint" />
+          <Property Name="companyId" Type="numeric" Precision="18" Scale="0" />
+        </EntityType>
+        <EntityType Name="DS_TVContentAds">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="content_ad_id" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="datetime" Type="bigint" />
+          <Property Name="tv_id" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="status" Type="smallint" />
+          <Property Name="companyId" Type="numeric" Precision="18" Scale="0" />
+        </EntityType>
+        <EntityType Name="DS_TVContents">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="tv_id" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="content_id" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="startTime" Type="int" />
+          <Property Name="endTime" Type="int" />
+          <Property Name="duration" Type="int" />
+          <Property Name="status" Type="smallint" />
+          <Property Name="type" Type="smallint" />
+          <Property Name="lastViewed" Type="bigint" />
+          <Property Name="companyId" Type="numeric" Precision="18" Scale="0" />
+        </EntityType>
+        <EntityType Name="DS_TVs">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="category_id" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="alarm_id" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="title" Type="nvarchar" MaxLength="200" />
+          <Property Name="datetime" Type="bigint" />
+          <Property Name="status" Type="smallint" />
+          <Property Name="type" Type="smallint" />
+          <Property Name="description" Type="nvarchar" MaxLength="2000" />
+          <Property Name="ip" Type="nvarchar" MaxLength="50" />
+          <Property Name="isDirty" Type="smallint" />
+          <Property Name="lastAlive" Type="bigint" />
+          <Property Name="x" Type="int" />
+          <Property Name="y" Type="int" />
+          <Property Name="companyId" Type="numeric" Precision="18" Scale="0" />
+        </EntityType>
+        <EntityType Name="DS_Users">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="fName" Type="nvarchar" MaxLength="200" />
+          <Property Name="lName" Type="nvarchar" MaxLength="200" />
+          <Property Name="username" Type="nvarchar" MaxLength="200" />
+          <Property Name="password" Type="nvarchar" MaxLength="200" />
+          <Property Name="companyId" Type="numeric" Precision="18" Scale="0" />
+        </EntityType>
+        <EntityType Name="DS_VideoCategories">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="parent_id" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="title" Type="nvarchar" MaxLength="200" />
+          <Property Name="status" Type="smallint" />
+          <Property Name="type" Type="smallint" />
+          <Property Name="companyId" Type="numeric" Precision="18" Scale="0" />
+        </EntityType>
+        <EntityType Name="DS_Videos">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="category_id" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="title" Type="nvarchar" MaxLength="200" />
+          <Property Name="createDateTime" Type="bigint" />
+          <Property Name="duration" Type="int" />
+          <Property Name="description" Type="nvarchar" MaxLength="50" />
+          <Property Name="rank" Type="int" />
+          <Property Name="hits" Type="int" />
+          <Property Name="status" Type="smallint" />
+          <Property Name="type" Type="smallint" />
+          <Property Name="file_name" Type="nvarchar" MaxLength="50" />
+          <Property Name="companyId" Type="numeric" Precision="18" Scale="0" />
+        </EntityType>
+        <Association Name="FK_DS_AdItems_DS_Ads">
+          <End Role="DS_Ads" Type="Self.DS_Ads" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="DS_AdItems" Type="Self.DS_AdItems" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DS_Ads">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="DS_AdItems">
+              <PropertyRef Name="ad_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DS_ContentAds_DS_Ads">
+          <End Role="DS_Ads" Type="Self.DS_Ads" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="DS_ContentAds" Type="Self.DS_ContentAds" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DS_Ads">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="DS_ContentAds">
+              <PropertyRef Name="ad_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DS_ContentAds_DS_Contents">
+          <End Role="DS_Contents" Type="Self.DS_Contents" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="DS_ContentAds" Type="Self.DS_ContentAds" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DS_Contents">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="DS_ContentAds">
+              <PropertyRef Name="content_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DS_ContentAds_DS_Lives">
+          <End Role="DS_Lives" Type="Self.DS_Lives" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="DS_ContentAds" Type="Self.DS_ContentAds" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DS_Lives">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="DS_ContentAds">
+              <PropertyRef Name="live_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DS_Contents_DS_ContentTypes">
+          <End Role="DS_ContentTypes" Type="Self.DS_ContentTypes" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="DS_Contents" Type="Self.DS_Contents" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DS_ContentTypes">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="DS_Contents">
+              <PropertyRef Name="contentType_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DS_LivePrograms_DS_Lives">
+          <End Role="DS_Lives" Type="Self.DS_Lives" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="DS_LivePrograms" Type="Self.DS_LivePrograms" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DS_Lives">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="DS_LivePrograms">
+              <PropertyRef Name="live_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DS_StoreEvents_DS_Stores">
+          <End Role="DS_Stores" Type="Self.DS_Stores" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="DS_StoreEvents" Type="Self.DS_StoreEvents" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DS_Stores">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="DS_StoreEvents">
+              <PropertyRef Name="store_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DS_Stores_DS_Maps">
+          <End Role="DS_Maps" Type="Self.DS_Maps" Multiplicity="0..1" />
+          <End Role="DS_Stores" Type="Self.DS_Stores" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DS_Maps">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="DS_Stores">
+              <PropertyRef Name="map_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DS_Stores_DS_StoreCategories">
+          <End Role="DS_StoreCategories" Type="Self.DS_StoreCategories" Multiplicity="0..1" />
+          <End Role="DS_Stores" Type="Self.DS_Stores" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DS_StoreCategories">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="DS_Stores">
+              <PropertyRef Name="category_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DS_TVContentAds_DS_ContentAds">
+          <End Role="DS_ContentAds" Type="Self.DS_ContentAds" Multiplicity="0..1" />
+          <End Role="DS_TVContentAds" Type="Self.DS_TVContentAds" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DS_ContentAds">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="DS_TVContentAds">
+              <PropertyRef Name="content_ad_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DS_TVContentAds_DS_TVs">
+          <End Role="DS_TVs" Type="Self.DS_TVs" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="DS_TVContentAds" Type="Self.DS_TVContentAds" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DS_TVs">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="DS_TVContentAds">
+              <PropertyRef Name="tv_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DS_TVContents_DS_Contents">
+          <End Role="DS_Contents" Type="Self.DS_Contents" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="DS_TVContents" Type="Self.DS_TVContents" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DS_Contents">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="DS_TVContents">
+              <PropertyRef Name="content_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DS_TVContents_DS_TVs">
+          <End Role="DS_TVs" Type="Self.DS_TVs" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="DS_TVContents" Type="Self.DS_TVContents" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DS_TVs">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="DS_TVContents">
+              <PropertyRef Name="tv_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DS_TVs_DS_Alarms">
+          <End Role="DS_Alarms" Type="Self.DS_Alarms" Multiplicity="0..1" />
+          <End Role="DS_TVs" Type="Self.DS_TVs" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DS_Alarms">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="DS_TVs">
+              <PropertyRef Name="alarm_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DS_TVs_DS_TVCategories">
+          <End Role="DS_TVCategories" Type="Self.DS_TVCategories" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="DS_TVs" Type="Self.DS_TVs" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DS_TVCategories">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="DS_TVs">
+              <PropertyRef Name="category_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DS_Users_DS_Company">
+          <End Role="DS_Company" Type="Self.DS_Company" Multiplicity="0..1" />
+          <End Role="DS_Users" Type="Self.DS_Users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DS_Company">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="DS_Users">
+              <PropertyRef Name="companyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DS_Videos_DS_VideoCategories">
+          <End Role="DS_VideoCategories" Type="Self.DS_VideoCategories" Multiplicity="0..1" />
+          <End Role="DS_Videos" Type="Self.DS_Videos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DS_VideoCategories">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="DS_Videos">
+              <PropertyRef Name="category_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DigitalSignageDBModelStoreContainer">
+          <EntitySet Name="DS_AdItems" EntityType="Self.DS_AdItems" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DS_Ads" EntityType="Self.DS_Ads" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DS_Alarms" EntityType="Self.DS_Alarms" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DS_Company" EntityType="Self.DS_Company" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DS_ContentAds" EntityType="Self.DS_ContentAds" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DS_Contents" EntityType="Self.DS_Contents" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DS_ContentTypes" EntityType="Self.DS_ContentTypes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DS_LivePrograms" EntityType="Self.DS_LivePrograms" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DS_Lives" EntityType="Self.DS_Lives" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DS_Maps" EntityType="Self.DS_Maps" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DS_News" EntityType="Self.DS_News" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DS_StoreCategories" EntityType="Self.DS_StoreCategories" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DS_StoreEvents" EntityType="Self.DS_StoreEvents" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DS_Stores" EntityType="Self.DS_Stores" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DS_TVCategories" EntityType="Self.DS_TVCategories" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DS_TVContentAds" EntityType="Self.DS_TVContentAds" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DS_TVContents" EntityType="Self.DS_TVContents" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DS_TVs" EntityType="Self.DS_TVs" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DS_Users" EntityType="Self.DS_Users" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DS_VideoCategories" EntityType="Self.DS_VideoCategories" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DS_Videos" EntityType="Self.DS_Videos" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_DS_AdItems_DS_Ads" Association="Self.FK_DS_AdItems_DS_Ads">
+            <End Role="DS_Ads" EntitySet="DS_Ads" />
+            <End Role="DS_AdItems" EntitySet="DS_AdItems" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DS_ContentAds_DS_Ads" Association="Self.FK_DS_ContentAds_DS_Ads">
+            <End Role="DS_Ads" EntitySet="DS_Ads" />
+            <End Role="DS_ContentAds" EntitySet="DS_ContentAds" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DS_ContentAds_DS_Contents" Association="Self.FK_DS_ContentAds_DS_Contents">
+            <End Role="DS_Contents" EntitySet="DS_Contents" />
+            <End Role="DS_ContentAds" EntitySet="DS_ContentAds" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DS_ContentAds_DS_Lives" Association="Self.FK_DS_ContentAds_DS_Lives">
+            <End Role="DS_Lives" EntitySet="DS_Lives" />
+            <End Role="DS_ContentAds" EntitySet="DS_ContentAds" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DS_Contents_DS_ContentTypes" Association="Self.FK_DS_Contents_DS_ContentTypes">
+            <End Role="DS_ContentTypes" EntitySet="DS_ContentTypes" />
+            <End Role="DS_Contents" EntitySet="DS_Contents" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DS_LivePrograms_DS_Lives" Association="Self.FK_DS_LivePrograms_DS_Lives">
+            <End Role="DS_Lives" EntitySet="DS_Lives" />
+            <End Role="DS_LivePrograms" EntitySet="DS_LivePrograms" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DS_StoreEvents_DS_Stores" Association="Self.FK_DS_StoreEvents_DS_Stores">
+            <End Role="DS_Stores" EntitySet="DS_Stores" />
+            <End Role="DS_StoreEvents" EntitySet="DS_StoreEvents" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DS_Stores_DS_Maps" Association="Self.FK_DS_Stores_DS_Maps">
+            <End Role="DS_Maps" EntitySet="DS_Maps" />
+            <End Role="DS_Stores" EntitySet="DS_Stores" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DS_Stores_DS_StoreCategories" Association="Self.FK_DS_Stores_DS_StoreCategories">
+            <End Role="DS_StoreCategories" EntitySet="DS_StoreCategories" />
+            <End Role="DS_Stores" EntitySet="DS_Stores" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DS_TVContentAds_DS_ContentAds" Association="Self.FK_DS_TVContentAds_DS_ContentAds">
+            <End Role="DS_ContentAds" EntitySet="DS_ContentAds" />
+            <End Role="DS_TVContentAds" EntitySet="DS_TVContentAds" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DS_TVContentAds_DS_TVs" Association="Self.FK_DS_TVContentAds_DS_TVs">
+            <End Role="DS_TVs" EntitySet="DS_TVs" />
+            <End Role="DS_TVContentAds" EntitySet="DS_TVContentAds" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DS_TVContents_DS_Contents" Association="Self.FK_DS_TVContents_DS_Contents">
+            <End Role="DS_Contents" EntitySet="DS_Contents" />
+            <End Role="DS_TVContents" EntitySet="DS_TVContents" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DS_TVContents_DS_TVs" Association="Self.FK_DS_TVContents_DS_TVs">
+            <End Role="DS_TVs" EntitySet="DS_TVs" />
+            <End Role="DS_TVContents" EntitySet="DS_TVContents" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DS_TVs_DS_Alarms" Association="Self.FK_DS_TVs_DS_Alarms">
+            <End Role="DS_Alarms" EntitySet="DS_Alarms" />
+            <End Role="DS_TVs" EntitySet="DS_TVs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DS_TVs_DS_TVCategories" Association="Self.FK_DS_TVs_DS_TVCategories">
+            <End Role="DS_TVCategories" EntitySet="DS_TVCategories" />
+            <End Role="DS_TVs" EntitySet="DS_TVs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DS_Users_DS_Company" Association="Self.FK_DS_Users_DS_Company">
+            <End Role="DS_Company" EntitySet="DS_Company" />
+            <End Role="DS_Users" EntitySet="DS_Users" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DS_Videos_DS_VideoCategories" Association="Self.FK_DS_Videos_DS_VideoCategories">
+            <End Role="DS_VideoCategories" EntitySet="DS_VideoCategories" />
+            <End Role="DS_Videos" EntitySet="DS_Videos" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DigitalSignageDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="DigitalSignageEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="DS_AdItems" EntityType="DigitalSignageDBModel.DS_AdItems" />
+          <EntitySet Name="DS_Ads" EntityType="DigitalSignageDBModel.DS_Ads" />
+          <EntitySet Name="DS_Alarms" EntityType="DigitalSignageDBModel.DS_Alarms" />
+          <EntitySet Name="DS_Company" EntityType="DigitalSignageDBModel.DS_Company" />
+          <EntitySet Name="DS_ContentAds" EntityType="DigitalSignageDBModel.DS_ContentAds" />
+          <EntitySet Name="DS_Contents" EntityType="DigitalSignageDBModel.DS_Contents" />
+          <EntitySet Name="DS_ContentTypes" EntityType="DigitalSignageDBModel.DS_ContentTypes" />
+          <EntitySet Name="DS_LivePrograms" EntityType="DigitalSignageDBModel.DS_LivePrograms" />
+          <EntitySet Name="DS_Lives" EntityType="DigitalSignageDBModel.DS_Lives" />
+          <EntitySet Name="DS_Maps" EntityType="DigitalSignageDBModel.DS_Maps" />
+          <EntitySet Name="DS_News" EntityType="DigitalSignageDBModel.DS_News" />
+          <EntitySet Name="DS_StoreCategories" EntityType="DigitalSignageDBModel.DS_StoreCategories" />
+          <EntitySet Name="DS_StoreEvents" EntityType="DigitalSignageDBModel.DS_StoreEvents" />
+          <EntitySet Name="DS_Stores" EntityType="DigitalSignageDBModel.DS_Stores" />
+          <EntitySet Name="DS_TVCategories" EntityType="DigitalSignageDBModel.DS_TVCategories" />
+          <EntitySet Name="DS_TVContentAds" EntityType="DigitalSignageDBModel.DS_TVContentAds" />
+          <EntitySet Name="DS_TVContents" EntityType="DigitalSignageDBModel.DS_TVContents" />
+          <EntitySet Name="DS_TVs" EntityType="DigitalSignageDBModel.DS_TVs" />
+          <EntitySet Name="DS_Users" EntityType="DigitalSignageDBModel.DS_Users" />
+          <EntitySet Name="DS_VideoCategories" EntityType="DigitalSignageDBModel.DS_VideoCategories" />
+          <EntitySet Name="DS_Videos" EntityType="DigitalSignageDBModel.DS_Videos" />
+          <AssociationSet Name="FK_DS_AdItems_DS_Ads" Association="DigitalSignageDBModel.FK_DS_AdItems_DS_Ads">
+            <End Role="DS_Ads" EntitySet="DS_Ads" />
+            <End Role="DS_AdItems" EntitySet="DS_AdItems" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DS_ContentAds_DS_Ads" Association="DigitalSignageDBModel.FK_DS_ContentAds_DS_Ads">
+            <End Role="DS_Ads" EntitySet="DS_Ads" />
+            <End Role="DS_ContentAds" EntitySet="DS_ContentAds" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DS_TVs_DS_Alarms" Association="DigitalSignageDBModel.FK_DS_TVs_DS_Alarms">
+            <End Role="DS_Alarms" EntitySet="DS_Alarms" />
+            <End Role="DS_TVs" EntitySet="DS_TVs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DS_Users_DS_Company" Association="DigitalSignageDBModel.FK_DS_Users_DS_Company">
+            <End Role="DS_Company" EntitySet="DS_Company" />
+            <End Role="DS_Users" EntitySet="DS_Users" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DS_ContentAds_DS_Contents" Association="DigitalSignageDBModel.FK_DS_ContentAds_DS_Contents">
+            <End Role="DS_Contents" EntitySet="DS_Contents" />
+            <End Role="DS_ContentAds" EntitySet="DS_ContentAds" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DS_ContentAds_DS_Lives" Association="DigitalSignageDBModel.FK_DS_ContentAds_DS_Lives">
+            <End Role="DS_Lives" EntitySet="DS_Lives" />
+            <End Role="DS_ContentAds" EntitySet="DS_ContentAds" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DS_TVContentAds_DS_ContentAds" Association="DigitalSignageDBModel.FK_DS_TVContentAds_DS_ContentAds">
+            <End Role="DS_ContentAds" EntitySet="DS_ContentAds" />
+            <End Role="DS_TVContentAds" EntitySet="DS_TVContentAds" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DS_Contents_DS_ContentTypes" Association="DigitalSignageDBModel.FK_DS_Contents_DS_ContentTypes">
+            <End Role="DS_ContentTypes" EntitySet="DS_ContentTypes" />
+            <End Role="DS_Contents" EntitySet="DS_Contents" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DS_TVContents_DS_Contents" Association="DigitalSignageDBModel.FK_DS_TVContents_DS_Contents">
+            <End Role="DS_Contents" EntitySet="DS_Contents" />
+            <End Role="DS_TVContents" EntitySet="DS_TVContents" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DS_LivePrograms_DS_Lives" Association="DigitalSignageDBModel.FK_DS_LivePrograms_DS_Lives">
+            <End Role="DS_Lives" EntitySet="DS_Lives" />
+            <End Role="DS_LivePrograms" EntitySet="DS_LivePrograms" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DS_Stores_DS_Maps" Association="DigitalSignageDBModel.FK_DS_Stores_DS_Maps">
+            <End Role="DS_Maps" EntitySet="DS_Maps" />
+            <End Role="DS_Stores" EntitySet="DS_Stores" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DS_Stores_DS_StoreCategories" Association="DigitalSignageDBModel.FK_DS_Stores_DS_StoreCategories">
+            <End Role="DS_StoreCategories" EntitySet="DS_StoreCategories" />
+            <End Role="DS_Stores" EntitySet="DS_Stores" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DS_StoreEvents_DS_Stores" Association="DigitalSignageDBModel.FK_DS_StoreEvents_DS_Stores">
+            <End Role="DS_Stores" EntitySet="DS_Stores" />
+            <End Role="DS_StoreEvents" EntitySet="DS_StoreEvents" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DS_TVs_DS_TVCategories" Association="DigitalSignageDBModel.FK_DS_TVs_DS_TVCategories">
+            <End Role="DS_TVCategories" EntitySet="DS_TVCategories" />
+            <End Role="DS_TVs" EntitySet="DS_TVs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DS_TVContentAds_DS_TVs" Association="DigitalSignageDBModel.FK_DS_TVContentAds_DS_TVs">
+            <End Role="DS_TVs" EntitySet="DS_TVs" />
+            <End Role="DS_TVContentAds" EntitySet="DS_TVContentAds" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DS_TVContents_DS_TVs" Association="DigitalSignageDBModel.FK_DS_TVContents_DS_TVs">
+            <End Role="DS_TVs" EntitySet="DS_TVs" />
+            <End Role="DS_TVContents" EntitySet="DS_TVContents" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DS_Videos_DS_VideoCategories" Association="DigitalSignageDBModel.FK_DS_Videos_DS_VideoCategories">
+            <End Role="DS_VideoCategories" EntitySet="DS_VideoCategories" />
+            <End Role="DS_Videos" EntitySet="DS_Videos" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="DS_AdItems">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Decimal" Nullable="false" Precision="18" Scale="0" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ad_id" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="title" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="file_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="description" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
+          <Property Name="status" Type="Int16" />
+          <Property Name="type" Type="Int16" />
+          <Property Name="minutes" Type="Int32" />
+          <Property Name="datetime" Type="Int64" />
+          <Property Name="companyId" Type="Decimal" Precision="18" Scale="0" />
+          <NavigationProperty Name="DS_Ads" Relationship="DigitalSignageDBModel.FK_DS_AdItems_DS_Ads" FromRole="DS_AdItems" ToRole="DS_Ads" />
+        </EntityType>
+        <EntityType Name="DS_Ads">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Decimal" Nullable="false" Precision="18" Scale="0" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="title" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="status" Type="Int16" />
+          <Property Name="type" Type="Int16" />
+          <Property Name="max_minutes" Type="Int32" />
+          <Property Name="passed_minutes" Type="Int32" />
+          <Property Name="companyId" Type="Decimal" Precision="18" Scale="0" />
+          <NavigationProperty Name="DS_AdItems" Relationship="DigitalSignageDBModel.FK_DS_AdItems_DS_Ads" FromRole="DS_Ads" ToRole="DS_AdItems" />
+          <NavigationProperty Name="DS_ContentAds" Relationship="DigitalSignageDBModel.FK_DS_ContentAds_DS_Ads" FromRole="DS_Ads" ToRole="DS_ContentAds" />
+        </EntityType>
+        <EntityType Name="DS_Alarms">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Decimal" Nullable="false" Precision="18" Scale="0" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="message" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="status" Type="Int16" />
+          <Property Name="type" Type="Int16" />
+          <Property Name="companyId" Type="Decimal" Precision="18" Scale="0" />
+          <NavigationProperty Name="DS_TVs" Relationship="DigitalSignageDBModel.FK_DS_TVs_DS_Alarms" FromRole="DS_Alarms" ToRole="DS_TVs" />
+        </EntityType>
+        <EntityType Name="DS_Company">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Decimal" Nullable="false" Precision="18" Scale="0" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="companyName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="description" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="DS_Users" Relationship="DigitalSignageDBModel.FK_DS_Users_DS_Company" FromRole="DS_Company" ToRole="DS_Users" />
+        </EntityType>
+        <EntityType Name="DS_ContentAds">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Decimal" Nullable="false" Precision="18" Scale="0" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="content_id" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="ad_id" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="live_id" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="interval" Type="Int32" />
+          <Property Name="position" Type="Int16" />
+          <Property Name="type" Type="Int16" />
+          <Property Name="status" Type="Int16" />
+          <Property Name="createDateTime" Type="Int64" />
+          <Property Name="description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="shuffle" Type="Byte" />
+          <Property Name="secondViewed" Type="Int32" />
+          <Property Name="companyId" Type="Decimal" Precision="18" Scale="0" />
+          <NavigationProperty Name="DS_Ads" Relationship="DigitalSignageDBModel.FK_DS_ContentAds_DS_Ads" FromRole="DS_ContentAds" ToRole="DS_Ads" />
+          <NavigationProperty Name="DS_Contents" Relationship="DigitalSignageDBModel.FK_DS_ContentAds_DS_Contents" FromRole="DS_ContentAds" ToRole="DS_Contents" />
+          <NavigationProperty Name="DS_Lives" Relationship="DigitalSignageDBModel.FK_DS_ContentAds_DS_Lives" FromRole="DS_ContentAds" ToRole="DS_Lives" />
+          <NavigationProperty Name="DS_TVContentAds" Relationship="DigitalSignageDBModel.FK_DS_TVContentAds_DS_ContentAds" FromRole="DS_ContentAds" ToRole="DS_TVContentAds" />
+        </EntityType>
+        <EntityType Name="DS_Contents">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Decimal" Nullable="false" Precision="18" Scale="0" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="contentType_id" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="title" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="description" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
+          <Property Name="datetime" Type="Int64" />
+          <Property Name="status" Type="Int16" />
+          <Property Name="type" Type="Int16" />
+          <Property Name="companyId" Type="Decimal" Precision="18" Scale="0" />
+          <NavigationProperty Name="DS_ContentAds" Relationship="DigitalSignageDBModel.FK_DS_ContentAds_DS_Contents" FromRole="DS_Contents" ToRole="DS_ContentAds" />
+          <NavigationProperty Name="DS_ContentTypes" Relationship="DigitalSignageDBModel.FK_DS_Contents_DS_ContentTypes" FromRole="DS_Contents" ToRole="DS_ContentTypes" />
+          <NavigationProperty Name="DS_TVContents" Relationship="DigitalSignageDBModel.FK_DS_TVContents_DS_Contents" FromRole="DS_Contents" ToRole="DS_TVContents" />
+        </EntityType>
+        <EntityType Name="DS_ContentTypes">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Decimal" Nullable="false" Precision="18" Scale="0" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="title" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="file_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="body" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="status" Type="Int16" />
+          <Property Name="type" Type="Int16" />
+          <Property Name="companyId" Type="Decimal" Precision="18" Scale="0" />
+          <NavigationProperty Name="DS_Contents" Relationship="DigitalSignageDBModel.FK_DS_Contents_DS_ContentTypes" FromRole="DS_ContentTypes" ToRole="DS_Contents" />
+        </EntityType>
+        <EntityType Name="DS_LivePrograms">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Decimal" Nullable="false" Precision="18" Scale="0" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="live_id" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="startDate" Type="Int64" />
+          <Property Name="endDate" Type="Int64" />
+          <Property Name="title" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="description" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
+          <Property Name="status" Type="Int16" />
+          <Property Name="type" Type="Int16" />
+          <Property Name="companyId" Type="Decimal" Precision="18" Scale="0" />
+          <NavigationProperty Name="DS_Lives" Relationship="DigitalSignageDBModel.FK_DS_LivePrograms_DS_Lives" FromRole="DS_LivePrograms" ToRole="DS_Lives" />
+        </EntityType>
+        <EntityType Name="DS_Lives">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Decimal" Nullable="false" Precision="18" Scale="0" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="title" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="url" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="status" Type="Int16" />
+          <Property Name="type" Type="Int16" />
+          <Property Name="description" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
+          <Property Name="channel" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="companyId" Type="Decimal" Precision="18" Scale="0" />
+          <NavigationProperty Name="DS_ContentAds" Relationship="DigitalSignageDBModel.FK_DS_ContentAds_DS_Lives" FromRole="DS_Lives" ToRole="DS_ContentAds" />
+          <NavigationProperty Name="DS_LivePrograms" Relationship="DigitalSignageDBModel.FK_DS_LivePrograms_DS_Lives" FromRole="DS_Lives" ToRole="DS_LivePrograms" />
+        </EntityType>
+        <EntityType Name="DS_Maps">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Decimal" Nullable="false" Precision="18" Scale="0" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="title" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="floor" Type="Int16" />
+          <Property Name="image" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="status" Type="Int16" />
+          <Property Name="type" Type="Int16" />
+          <Property Name="companyId" Type="Decimal" Precision="18" Scale="0" />
+          <NavigationProperty Name="DS_Stores" Relationship="DigitalSignageDBModel.FK_DS_Stores_DS_Maps" FromRole="DS_Maps" ToRole="DS_Stores" />
+        </EntityType>
+        <EntityType Name="DS_News">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Decimal" Nullable="false" Precision="18" Scale="0" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="title" Type="String" MaxLength="3000" FixedLength="false" Unicode="true" />
+          <Property Name="description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="status" Type="Int16" />
+          <Property Name="type" Type="Int16" />
+          <Property Name="date" Type="Int32" />
+          <Property Name="time" Type="Int32" />
+          <Property Name="companyId" Type="Decimal" Precision="18" Scale="0" />
+        </EntityType>
+        <EntityType Name="DS_StoreCategories">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Decimal" Nullable="false" Precision="18" Scale="0" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="title" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="image" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="status" Type="Int16" />
+          <Property Name="type" Type="Int16" />
+          <Property Name="companyId" Type="Decimal" Precision="18" Scale="0" />
+          <NavigationProperty Name="DS_Stores" Relationship="DigitalSignageDBModel.FK_DS_Stores_DS_StoreCategories" FromRole="DS_StoreCategories" ToRole="DS_Stores" />
+        </EntityType>
+        <EntityType Name="DS_StoreEvents">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Decimal" Nullable="false" Precision="18" Scale="0" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="store_id" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="title" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="image" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="status" Type="Int16" />
+          <Property Name="type" Type="Int16" />
+          <Property Name="date" Type="Int32" />
+          <Property Name="companyId" Type="Decimal" Precision="18" Scale="0" />
+          <NavigationProperty Name="DS_Stores" Relationship="DigitalSignageDBModel.FK_DS_StoreEvents_DS_Stores" FromRole="DS_StoreEvents" ToRole="DS_Stores" />
+        </EntityType>
+        <EntityType Name="DS_Stores">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Decimal" Nullable="false" Precision="18" Scale="0" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="category_id" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="map_id" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="title" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="description" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
+          <Property Name="unit" Type="Int32" />
+          <Property Name="phone1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="phone2" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="status" Type="Int16" />
+          <Property Name="type" Type="Int16" />
+          <Property Name="x" Type="Int32" />
+          <Property Name="y" Type="Int32" />
+          <Property Name="image" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="startWorkTime" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="endWorkTime" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="workingDay" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="companyId" Type="Decimal" Precision="18" Scale="0" />
+          <NavigationProperty Name="DS_Maps" Relationship="DigitalSignageDBModel.FK_DS_Stores_DS_Maps" FromRole="DS_Stores" ToRole="DS_Maps" />
+          <NavigationProperty Name="DS_StoreCategories" Relationship="DigitalSignageDBModel.FK_DS_Stores_DS_StoreCategories" FromRole="DS_Stores" ToRole="DS_StoreCategories" />
+          <NavigationProperty Name="DS_StoreEvents" Relationship="DigitalSignageDBModel.FK_DS_StoreEvents_DS_Stores" FromRole="DS_Stores" ToRole="DS_StoreEvents" />
+        </EntityType>
+        <EntityType Name="DS_TVCategories">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Decimal" Nullable="false" Precision="18" Scale="0" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="parent_id" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="title" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="status" Type="Int16" />
+          <Property Name="type" Type="Int16" />
+          <Property Name="companyId" Type="Decimal" Precision="18" Scale="0" />
+          <NavigationProperty Name="DS_TVs" Relationship="DigitalSignageDBModel.FK_DS_TVs_DS_TVCategories" FromRole="DS_TVCategories" ToRole="DS_TVs" />
+        </EntityType>
+        <EntityType Name="DS_TVContentAds">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Decimal" Nullable="false" Precision="18" Scale="0" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="content_ad_id" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="datetime" Type="Int64" />
+          <Property Name="tv_id" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="status" Type="Int16" />
+          <Property Name="companyId" Type="Decimal" Precision="18" Scale="0" />
+          <NavigationProperty Name="DS_ContentAds" Relationship="DigitalSignageDBModel.FK_DS_TVContentAds_DS_ContentAds" FromRole="DS_TVContentAds" ToRole="DS_ContentAds" />
+          <NavigationProperty Name="DS_TVs" Relationship="DigitalSignageDBModel.FK_DS_TVContentAds_DS_TVs" FromRole="DS_TVContentAds" ToRole="DS_TVs" />
+        </EntityType>
+        <EntityType Name="DS_TVContents">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Decimal" Nullable="false" Precision="18" Scale="0" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="tv_id" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="content_id" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="startTime" Type="Int32" />
+          <Property Name="endTime" Type="Int32" />
+          <Property Name="duration" Type="Int32" />
+          <Property Name="status" Type="Int16" />
+          <Property Name="type" Type="Int16" />
+          <Property Name="lastViewed" Type="Int64" />
+          <Property Name="companyId" Type="Decimal" Precision="18" Scale="0" />
+          <NavigationProperty Name="DS_Contents" Relationship="DigitalSignageDBModel.FK_DS_TVContents_DS_Contents" FromRole="DS_TVContents" ToRole="DS_Contents" />
+          <NavigationProperty Name="DS_TVs" Relationship="DigitalSignageDBModel.FK_DS_TVContents_DS_TVs" FromRole="DS_TVContents" ToRole="DS_TVs" />
+        </EntityType>
+        <EntityType Name="DS_TVs">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Decimal" Nullable="false" Precision="18" Scale="0" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="category_id" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="alarm_id" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="title" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="datetime" Type="Int64" />
+          <Property Name="status" Type="Int16" />
+          <Property Name="type" Type="Int16" />
+          <Property Name="description" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
+          <Property Name="ip" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="isDirty" Type="Int16" />
+          <Property Name="lastAlive" Type="Int64" />
+          <Property Name="x" Type="Int32" />
+          <Property Name="y" Type="Int32" />
+          <Property Name="companyId" Type="Decimal" Precision="18" Scale="0" />
+          <NavigationProperty Name="DS_Alarms" Relationship="DigitalSignageDBModel.FK_DS_TVs_DS_Alarms" FromRole="DS_TVs" ToRole="DS_Alarms" />
+          <NavigationProperty Name="DS_TVCategories" Relationship="DigitalSignageDBModel.FK_DS_TVs_DS_TVCategories" FromRole="DS_TVs" ToRole="DS_TVCategories" />
+          <NavigationProperty Name="DS_TVContentAds" Relationship="DigitalSignageDBModel.FK_DS_TVContentAds_DS_TVs" FromRole="DS_TVs" ToRole="DS_TVContentAds" />
+          <NavigationProperty Name="DS_TVContents" Relationship="DigitalSignageDBModel.FK_DS_TVContents_DS_TVs" FromRole="DS_TVs" ToRole="DS_TVContents" />
+        </EntityType>
+        <EntityType Name="DS_Users">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Decimal" Nullable="false" Precision="18" Scale="0" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="fName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="lName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="username" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="password" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="companyId" Type="Decimal" Precision="18" Scale="0" />
+          <NavigationProperty Name="DS_Company" Relationship="DigitalSignageDBModel.FK_DS_Users_DS_Company" FromRole="DS_Users" ToRole="DS_Company" />
+        </EntityType>
+        <EntityType Name="DS_VideoCategories">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Decimal" Nullable="false" Precision="18" Scale="0" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="parent_id" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="title" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="status" Type="Int16" />
+          <Property Name="type" Type="Int16" />
+          <Property Name="companyId" Type="Decimal" Precision="18" Scale="0" />
+          <NavigationProperty Name="DS_Videos" Relationship="DigitalSignageDBModel.FK_DS_Videos_DS_VideoCategories" FromRole="DS_VideoCategories" ToRole="DS_Videos" />
+        </EntityType>
+        <EntityType Name="DS_Videos">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Decimal" Nullable="false" Precision="18" Scale="0" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="category_id" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="title" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="createDateTime" Type="Int64" />
+          <Property Name="duration" Type="Int32" />
+          <Property Name="description" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="rank" Type="Int32" />
+          <Property Name="hits" Type="Int32" />
+          <Property Name="status" Type="Int16" />
+          <Property Name="type" Type="Int16" />
+          <Property Name="file_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="companyId" Type="Decimal" Precision="18" Scale="0" />
+          <NavigationProperty Name="DS_VideoCategories" Relationship="DigitalSignageDBModel.FK_DS_Videos_DS_VideoCategories" FromRole="DS_Videos" ToRole="DS_VideoCategories" />
+        </EntityType>
+        <Association Name="FK_DS_AdItems_DS_Ads">
+          <End Type="DigitalSignageDBModel.DS_Ads" Role="DS_Ads" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="DigitalSignageDBModel.DS_AdItems" Role="DS_AdItems" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DS_Ads">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="DS_AdItems">
+              <PropertyRef Name="ad_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DS_ContentAds_DS_Ads">
+          <End Type="DigitalSignageDBModel.DS_Ads" Role="DS_Ads" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="DigitalSignageDBModel.DS_ContentAds" Role="DS_ContentAds" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DS_Ads">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="DS_ContentAds">
+              <PropertyRef Name="ad_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DS_TVs_DS_Alarms">
+          <End Type="DigitalSignageDBModel.DS_Alarms" Role="DS_Alarms" Multiplicity="0..1" />
+          <End Type="DigitalSignageDBModel.DS_TVs" Role="DS_TVs" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DS_Alarms">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="DS_TVs">
+              <PropertyRef Name="alarm_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DS_Users_DS_Company">
+          <End Type="DigitalSignageDBModel.DS_Company" Role="DS_Company" Multiplicity="0..1" />
+          <End Type="DigitalSignageDBModel.DS_Users" Role="DS_Users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DS_Company">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="DS_Users">
+              <PropertyRef Name="companyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DS_ContentAds_DS_Contents">
+          <End Type="DigitalSignageDBModel.DS_Contents" Role="DS_Contents" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="DigitalSignageDBModel.DS_ContentAds" Role="DS_ContentAds" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DS_Contents">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="DS_ContentAds">
+              <PropertyRef Name="content_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DS_ContentAds_DS_Lives">
+          <End Type="DigitalSignageDBModel.DS_Lives" Role="DS_Lives" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="DigitalSignageDBModel.DS_ContentAds" Role="DS_ContentAds" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DS_Lives">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="DS_ContentAds">
+              <PropertyRef Name="live_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DS_TVContentAds_DS_ContentAds">
+          <End Type="DigitalSignageDBModel.DS_ContentAds" Role="DS_ContentAds" Multiplicity="0..1" />
+          <End Type="DigitalSignageDBModel.DS_TVContentAds" Role="DS_TVContentAds" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DS_ContentAds">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="DS_TVContentAds">
+              <PropertyRef Name="content_ad_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DS_Contents_DS_ContentTypes">
+          <End Type="DigitalSignageDBModel.DS_ContentTypes" Role="DS_ContentTypes" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="DigitalSignageDBModel.DS_Contents" Role="DS_Contents" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DS_ContentTypes">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="DS_Contents">
+              <PropertyRef Name="contentType_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DS_TVContents_DS_Contents">
+          <End Type="DigitalSignageDBModel.DS_Contents" Role="DS_Contents" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="DigitalSignageDBModel.DS_TVContents" Role="DS_TVContents" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DS_Contents">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="DS_TVContents">
+              <PropertyRef Name="content_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DS_LivePrograms_DS_Lives">
+          <End Type="DigitalSignageDBModel.DS_Lives" Role="DS_Lives" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="DigitalSignageDBModel.DS_LivePrograms" Role="DS_LivePrograms" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DS_Lives">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="DS_LivePrograms">
+              <PropertyRef Name="live_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DS_Stores_DS_Maps">
+          <End Type="DigitalSignageDBModel.DS_Maps" Role="DS_Maps" Multiplicity="0..1" />
+          <End Type="DigitalSignageDBModel.DS_Stores" Role="DS_Stores" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DS_Maps">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="DS_Stores">
+              <PropertyRef Name="map_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DS_Stores_DS_StoreCategories">
+          <End Type="DigitalSignageDBModel.DS_StoreCategories" Role="DS_StoreCategories" Multiplicity="0..1" />
+          <End Type="DigitalSignageDBModel.DS_Stores" Role="DS_Stores" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DS_StoreCategories">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="DS_Stores">
+              <PropertyRef Name="category_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DS_StoreEvents_DS_Stores">
+          <End Type="DigitalSignageDBModel.DS_Stores" Role="DS_Stores" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="DigitalSignageDBModel.DS_StoreEvents" Role="DS_StoreEvents" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DS_Stores">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="DS_StoreEvents">
+              <PropertyRef Name="store_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DS_TVs_DS_TVCategories">
+          <End Type="DigitalSignageDBModel.DS_TVCategories" Role="DS_TVCategories" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="DigitalSignageDBModel.DS_TVs" Role="DS_TVs" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DS_TVCategories">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="DS_TVs">
+              <PropertyRef Name="category_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DS_TVContentAds_DS_TVs">
+          <End Type="DigitalSignageDBModel.DS_TVs" Role="DS_TVs" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="DigitalSignageDBModel.DS_TVContentAds" Role="DS_TVContentAds" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DS_TVs">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="DS_TVContentAds">
+              <PropertyRef Name="tv_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DS_TVContents_DS_TVs">
+          <End Type="DigitalSignageDBModel.DS_TVs" Role="DS_TVs" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="DigitalSignageDBModel.DS_TVContents" Role="DS_TVContents" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DS_TVs">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="DS_TVContents">
+              <PropertyRef Name="tv_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DS_Videos_DS_VideoCategories">
+          <End Type="DigitalSignageDBModel.DS_VideoCategories" Role="DS_VideoCategories" Multiplicity="0..1" />
+          <End Type="DigitalSignageDBModel.DS_Videos" Role="DS_Videos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DS_VideoCategories">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="DS_Videos">
+              <PropertyRef Name="category_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DigitalSignageDBModelStoreContainer" CdmEntityContainer="DigitalSignageEntities">
+          <EntitySetMapping Name="DS_AdItems">
+            <EntityTypeMapping TypeName="DigitalSignageDBModel.DS_AdItems">
+              <MappingFragment StoreEntitySet="DS_AdItems">
+                <ScalarProperty Name="companyId" ColumnName="companyId" />
+                <ScalarProperty Name="datetime" ColumnName="datetime" />
+                <ScalarProperty Name="minutes" ColumnName="minutes" />
+                <ScalarProperty Name="type" ColumnName="type" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="file_name" ColumnName="file_name" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="ad_id" ColumnName="ad_id" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DS_Ads">
+            <EntityTypeMapping TypeName="DigitalSignageDBModel.DS_Ads">
+              <MappingFragment StoreEntitySet="DS_Ads">
+                <ScalarProperty Name="companyId" ColumnName="companyId" />
+                <ScalarProperty Name="passed_minutes" ColumnName="passed_minutes" />
+                <ScalarProperty Name="max_minutes" ColumnName="max_minutes" />
+                <ScalarProperty Name="type" ColumnName="type" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DS_Alarms">
+            <EntityTypeMapping TypeName="DigitalSignageDBModel.DS_Alarms">
+              <MappingFragment StoreEntitySet="DS_Alarms">
+                <ScalarProperty Name="companyId" ColumnName="companyId" />
+                <ScalarProperty Name="type" ColumnName="type" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="message" ColumnName="message" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DS_Company">
+            <EntityTypeMapping TypeName="DigitalSignageDBModel.DS_Company">
+              <MappingFragment StoreEntitySet="DS_Company">
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="companyName" ColumnName="companyName" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DS_ContentAds">
+            <EntityTypeMapping TypeName="DigitalSignageDBModel.DS_ContentAds">
+              <MappingFragment StoreEntitySet="DS_ContentAds">
+                <ScalarProperty Name="companyId" ColumnName="companyId" />
+                <ScalarProperty Name="secondViewed" ColumnName="secondViewed" />
+                <ScalarProperty Name="shuffle" ColumnName="shuffle" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="createDateTime" ColumnName="createDateTime" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="type" ColumnName="type" />
+                <ScalarProperty Name="position" ColumnName="position" />
+                <ScalarProperty Name="interval" ColumnName="interval" />
+                <ScalarProperty Name="live_id" ColumnName="live_id" />
+                <ScalarProperty Name="ad_id" ColumnName="ad_id" />
+                <ScalarProperty Name="content_id" ColumnName="content_id" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DS_Contents">
+            <EntityTypeMapping TypeName="DigitalSignageDBModel.DS_Contents">
+              <MappingFragment StoreEntitySet="DS_Contents">
+                <ScalarProperty Name="companyId" ColumnName="companyId" />
+                <ScalarProperty Name="type" ColumnName="type" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="datetime" ColumnName="datetime" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="contentType_id" ColumnName="contentType_id" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DS_ContentTypes">
+            <EntityTypeMapping TypeName="DigitalSignageDBModel.DS_ContentTypes">
+              <MappingFragment StoreEntitySet="DS_ContentTypes">
+                <ScalarProperty Name="companyId" ColumnName="companyId" />
+                <ScalarProperty Name="type" ColumnName="type" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="body" ColumnName="body" />
+                <ScalarProperty Name="file_name" ColumnName="file_name" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DS_LivePrograms">
+            <EntityTypeMapping TypeName="DigitalSignageDBModel.DS_LivePrograms">
+              <MappingFragment StoreEntitySet="DS_LivePrograms">
+                <ScalarProperty Name="companyId" ColumnName="companyId" />
+                <ScalarProperty Name="type" ColumnName="type" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="endDate" ColumnName="endDate" />
+                <ScalarProperty Name="startDate" ColumnName="startDate" />
+                <ScalarProperty Name="live_id" ColumnName="live_id" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DS_Lives">
+            <EntityTypeMapping TypeName="DigitalSignageDBModel.DS_Lives">
+              <MappingFragment StoreEntitySet="DS_Lives">
+                <ScalarProperty Name="companyId" ColumnName="companyId" />
+                <ScalarProperty Name="channel" ColumnName="channel" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="type" ColumnName="type" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="url" ColumnName="url" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DS_Maps">
+            <EntityTypeMapping TypeName="DigitalSignageDBModel.DS_Maps">
+              <MappingFragment StoreEntitySet="DS_Maps">
+                <ScalarProperty Name="companyId" ColumnName="companyId" />
+                <ScalarProperty Name="type" ColumnName="type" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="image" ColumnName="image" />
+                <ScalarProperty Name="floor" ColumnName="floor" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DS_News">
+            <EntityTypeMapping TypeName="DigitalSignageDBModel.DS_News">
+              <MappingFragment StoreEntitySet="DS_News">
+                <ScalarProperty Name="companyId" ColumnName="companyId" />
+                <ScalarProperty Name="time" ColumnName="time" />
+                <ScalarProperty Name="date" ColumnName="date" />
+                <ScalarProperty Name="type" ColumnName="type" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DS_StoreCategories">
+            <EntityTypeMapping TypeName="DigitalSignageDBModel.DS_StoreCategories">
+              <MappingFragment StoreEntitySet="DS_StoreCategories">
+                <ScalarProperty Name="companyId" ColumnName="companyId" />
+                <ScalarProperty Name="type" ColumnName="type" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="image" ColumnName="image" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DS_StoreEvents">
+            <EntityTypeMapping TypeName="DigitalSignageDBModel.DS_StoreEvents">
+              <MappingFragment StoreEntitySet="DS_StoreEvents">
+                <ScalarProperty Name="companyId" ColumnName="companyId" />
+                <ScalarProperty Name="date" ColumnName="date" />
+                <ScalarProperty Name="type" ColumnName="type" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="image" ColumnName="image" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="store_id" ColumnName="store_id" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DS_Stores">
+            <EntityTypeMapping TypeName="DigitalSignageDBModel.DS_Stores">
+              <MappingFragment StoreEntitySet="DS_Stores">
+                <ScalarProperty Name="companyId" ColumnName="companyId" />
+                <ScalarProperty Name="workingDay" ColumnName="workingDay" />
+                <ScalarProperty Name="endWorkTime" ColumnName="endWorkTime" />
+                <ScalarProperty Name="startWorkTime" ColumnName="startWorkTime" />
+                <ScalarProperty Name="image" ColumnName="image" />
+                <ScalarProperty Name="y" ColumnName="y" />
+                <ScalarProperty Name="x" ColumnName="x" />
+                <ScalarProperty Name="type" ColumnName="type" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="phone2" ColumnName="phone2" />
+                <ScalarProperty Name="phone1" ColumnName="phone1" />
+                <ScalarProperty Name="unit" ColumnName="unit" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="map_id" ColumnName="map_id" />
+                <ScalarProperty Name="category_id" ColumnName="category_id" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DS_TVCategories">
+            <EntityTypeMapping TypeName="DigitalSignageDBModel.DS_TVCategories">
+              <MappingFragment StoreEntitySet="DS_TVCategories">
+                <ScalarProperty Name="companyId" ColumnName="companyId" />
+                <ScalarProperty Name="type" ColumnName="type" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="parent_id" ColumnName="parent_id" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DS_TVContentAds">
+            <EntityTypeMapping TypeName="DigitalSignageDBModel.DS_TVContentAds">
+              <MappingFragment StoreEntitySet="DS_TVContentAds">
+                <ScalarProperty Name="companyId" ColumnName="companyId" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="tv_id" ColumnName="tv_id" />
+                <ScalarProperty Name="datetime" ColumnName="datetime" />
+                <ScalarProperty Name="content_ad_id" ColumnName="content_ad_id" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DS_TVContents">
+            <EntityTypeMapping TypeName="DigitalSignageDBModel.DS_TVContents">
+              <MappingFragment StoreEntitySet="DS_TVContents">
+                <ScalarProperty Name="companyId" ColumnName="companyId" />
+                <ScalarProperty Name="lastViewed" ColumnName="lastViewed" />
+                <ScalarProperty Name="type" ColumnName="type" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="duration" ColumnName="duration" />
+                <ScalarProperty Name="endTime" ColumnName="endTime" />
+                <ScalarProperty Name="startTime" ColumnName="startTime" />
+                <ScalarProperty Name="content_id" ColumnName="content_id" />
+                <ScalarProperty Name="tv_id" ColumnName="tv_id" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DS_TVs">
+            <EntityTypeMapping TypeName="DigitalSignageDBModel.DS_TVs">
+              <MappingFragment StoreEntitySet="DS_TVs">
+                <ScalarProperty Name="companyId" ColumnName="companyId" />
+                <ScalarProperty Name="y" ColumnName="y" />
+                <ScalarProperty Name="x" ColumnName="x" />
+                <ScalarProperty Name="lastAlive" ColumnName="lastAlive" />
+                <ScalarProperty Name="isDirty" ColumnName="isDirty" />
+                <ScalarProperty Name="ip" ColumnName="ip" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="type" ColumnName="type" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="datetime" ColumnName="datetime" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="alarm_id" ColumnName="alarm_id" />
+                <ScalarProperty Name="category_id" ColumnName="category_id" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DS_Users">
+            <EntityTypeMapping TypeName="DigitalSignageDBModel.DS_Users">
+              <MappingFragment StoreEntitySet="DS_Users">
+                <ScalarProperty Name="companyId" ColumnName="companyId" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="username" ColumnName="username" />
+                <ScalarProperty Name="lName" ColumnName="lName" />
+                <ScalarProperty Name="fName" ColumnName="fName" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DS_VideoCategories">
+            <EntityTypeMapping TypeName="DigitalSignageDBModel.DS_VideoCategories">
+              <MappingFragment StoreEntitySet="DS_VideoCategories">
+                <ScalarProperty Name="companyId" ColumnName="companyId" />
+                <ScalarProperty Name="type" ColumnName="type" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="parent_id" ColumnName="parent_id" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DS_Videos">
+            <EntityTypeMapping TypeName="DigitalSignageDBModel.DS_Videos">
+              <MappingFragment StoreEntitySet="DS_Videos">
+                <ScalarProperty Name="companyId" ColumnName="companyId" />
+                <ScalarProperty Name="file_name" ColumnName="file_name" />
+                <ScalarProperty Name="type" ColumnName="type" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="hits" ColumnName="hits" />
+                <ScalarProperty Name="rank" ColumnName="rank" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="duration" ColumnName="duration" />
+                <ScalarProperty Name="createDateTime" ColumnName="createDateTime" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="category_id" ColumnName="category_id" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
