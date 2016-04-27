@@ -54,13 +54,15 @@ namespace DigitalServices.Services
                                 UriTemplate = "digital/deleteContents")]
         ResultMessage<string> deleteContents(long id);
 
+      
+
         [OperationContract]
         [WebInvoke(Method = "POST",
-                                 ResponseFormat = WebMessageFormat.Json,
-                                 RequestFormat = WebMessageFormat.Json,
-                                BodyStyle = WebMessageBodyStyle.Bare,
-                                UriTemplate = "digital/editContentAds")]
-        ResultMessage<string> editContentAds(ContentOptionInfoWTO contentOptionInfo);
+                                ResponseFormat = WebMessageFormat.Json,
+                                RequestFormat = WebMessageFormat.Json,
+                               BodyStyle = WebMessageBodyStyle.Bare,
+                               UriTemplate = "digital/saveContentAds")]
+         ResultMessage<string> saveContentAds(ContentOptionInfoWTO contentOptionInfo);
 
         #region Search
 

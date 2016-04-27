@@ -36,6 +36,7 @@ namespace DigitalServices.Model
         [DataMember]
         public string companyName { get; set; }
 
-
+        [DataMember]
+        public List<AdsInfoWTO> adsItemList { get; set; }
     }
 }
