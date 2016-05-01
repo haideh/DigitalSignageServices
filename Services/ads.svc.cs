@@ -412,14 +412,16 @@ namespace DigitalServices.Services
             }
         }
 
-        public ResultMessage<List<AdsInfoWTO>> getAdsWithItemDetail(string type , long companyId)
+        public ResultMessage<List<AdsInfoWTO>> getAdsWithItemDetail(string type , long companyId, long content_id, int position)
         {
             try
             {
                 List<AdsInfoWTO> listSearch = new List<AdsInfoWTO>();
                 DigitalSignageEntities db = new DigitalSignageEntities();
                 short typeAds = Convert.ToInt16(type);
-                var additemLis = (from i in db.DS_Ads where i.type == typeAds && i.companyId == companyId select i).ToList();
+                var contentItemList = (from i in db.DS_ContentAds where i.content_id == content_id && i.position == position && i.live_id==null select i.ad_id);
+
+                var additemLis = (from i in db.DS_Ads where i.type == typeAds && i.companyId == companyId   && !contentItemList.Contains(i.id) select i).ToList();
                 foreach (var item in additemLis)
                 {
                     AdsInfoWTO newItem = new AdsInfoWTO();

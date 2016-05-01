@@ -13,6 +13,8 @@ namespace DigitalServices.Model
         [DataMember]
         public long id { get; set; }
         [DataMember]
+        public int nameId { get; set; }
+        [DataMember]
         public int status { get; set; }
         [DataMember]
         public int type { get; set; }

@@ -29,6 +29,7 @@ namespace DigitalServices
         public string description { get; set; }
         public string channel { get; set; }
         public Nullable<decimal> companyId { get; set; }
+        public Nullable<int> nameId { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DS_ContentAds> DS_ContentAds { get; set; }

@@ -54,7 +54,12 @@ namespace DigitalServices.Services
                                 UriTemplate = "digital/deleteContents")]
         ResultMessage<string> deleteContents(long id);
 
-      
+        [WebInvoke(Method = "POST",
+                                 ResponseFormat = WebMessageFormat.Json,
+                                 RequestFormat = WebMessageFormat.Json,
+                                BodyStyle = WebMessageBodyStyle.Bare,
+                                UriTemplate = "digital/deleteContentsAsdWithPosition")]
+        ResultMessage<string> deleteContentsAsdWithPosition(long contentId, int position);
 
         [OperationContract]
         [WebInvoke(Method = "POST",
@@ -82,13 +87,7 @@ namespace DigitalServices.Services
                              UriTemplate = "digital/loadContentsWithAdsItemDetail")]
         ResultMessage<List<AdsInfoWTO>> loadContentsWithAdsItemDetail( long content_id);
 
-        [OperationContract]
-        [WebInvoke(Method = "POST",
-                           ResponseFormat = WebMessageFormat.Json,
-                           RequestFormat = WebMessageFormat.Json,
-                          BodyStyle = WebMessageBodyStyle.Bare,
-                          UriTemplate = "digital/loadLiveContentsAds")]
-        ResultMessage<List<LiveTVInfoWTO>> loadLiveContentsAds( long content_id);
+
 
         [OperationContract]
         [WebInvoke(Method = "POST",

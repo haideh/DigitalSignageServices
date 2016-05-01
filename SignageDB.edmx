@@ -119,6 +119,7 @@
           <Property Name="description" Type="nvarchar" MaxLength="2000" />
           <Property Name="channel" Type="nvarchar" MaxLength="50" />
           <Property Name="companyId" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="nameId" Type="int" />
         </EntityType>
         <EntityType Name="DS_Maps">
           <Key>
@@ -829,6 +830,7 @@
           <Property Name="companyId" Type="Decimal" Precision="18" Scale="0" />
           <NavigationProperty Name="DS_ContentAds" Relationship="DigitalSignageDBModel.FK_DS_ContentAds_DS_Lives" FromRole="DS_Lives" ToRole="DS_ContentAds" />
           <NavigationProperty Name="DS_LivePrograms" Relationship="DigitalSignageDBModel.FK_DS_LivePrograms_DS_Lives" FromRole="DS_Lives" ToRole="DS_LivePrograms" />
+          <Property Name="nameId" Type="Int32" />
         </EntityType>
         <EntityType Name="DS_Maps">
           <Key>
@@ -1360,6 +1362,7 @@
           <EntitySetMapping Name="DS_Lives">
             <EntityTypeMapping TypeName="DigitalSignageDBModel.DS_Lives">
               <MappingFragment StoreEntitySet="DS_Lives">
+                <ScalarProperty Name="nameId" ColumnName="nameId" />
                 <ScalarProperty Name="companyId" ColumnName="companyId" />
                 <ScalarProperty Name="channel" ColumnName="channel" />
                 <ScalarProperty Name="description" ColumnName="description" />

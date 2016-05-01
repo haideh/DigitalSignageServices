@@ -22,5 +22,29 @@ namespace DigitalServices.Services
                                 UriTemplate = "digital/addLiveVideo")]
 
         ResultMessage<string> addLiveVideo(LiveTVInfoWTO videos);
+
+        [OperationContract]
+        [WebInvoke(Method = "POST",
+                   ResponseFormat = WebMessageFormat.Json,
+                   RequestFormat = WebMessageFormat.Json,
+                  BodyStyle = WebMessageBodyStyle.Bare,
+                  UriTemplate = "digital/loadLiveContentsAds")]
+        ResultMessage<List<LiveTVInfoWTO>> loadLiveContentsAds(long content_id);
+
+        [OperationContract]
+        [WebInvoke(Method = "POST",
+                   ResponseFormat = WebMessageFormat.Json,
+                   RequestFormat = WebMessageFormat.Json,
+                  BodyStyle = WebMessageBodyStyle.Bare,
+                  UriTemplate = "digital/loadLiveContentsAds")]
+        ResultMessage<List<LiveTVInfoWTO>> loadLivesTvAds(long content_id, long companyId, int position);
+
+        [OperationContract]
+        [WebInvoke(Method = "POST",
+           ResponseFormat = WebMessageFormat.Json,
+           RequestFormat = WebMessageFormat.Json,
+          BodyStyle = WebMessageBodyStyle.Bare,
+          UriTemplate = "digital/loadLiveContentsAds")]
+        ResultMessage<List<LiveTVInfoWTO>> searchContentsWithLiveItem(long content_id, int position);
     }
 }

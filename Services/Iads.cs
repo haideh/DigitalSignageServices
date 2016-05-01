@@ -86,7 +86,7 @@ namespace DigitalServices.Services
                             RequestFormat = WebMessageFormat.Json,
                            BodyStyle = WebMessageBodyStyle.Bare,
                            UriTemplate = "digital/getAdsWithItemDetail")]
-        ResultMessage<List<AdsInfoWTO>> getAdsWithItemDetail(string type, long companyId);
+        ResultMessage<List<AdsInfoWTO>> getAdsWithItemDetail(string type, long companyId, long content_id, int position);
         [OperationContract]
         [WebInvoke(Method = "POST",
                           ResponseFormat = WebMessageFormat.Json,

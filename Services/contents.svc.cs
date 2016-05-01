@@ -197,14 +197,14 @@ namespace DigitalServices.Services
                 };
             }
         }
-        private bool editContentAdsItem(AdsInfoWTO adsInfo,int position,long content_id,int interval)
+        private bool editContentAdsItem(AdsInfoWTO adsInfo, int position, long content_id, int interval,int type)
         {
             try
             {
                 DigitalSignageEntities db = new DigitalSignageEntities();
 
-                // delete Lives
-                var contentAds = (from c in db.DS_ContentAds where c.content_id == content_id && c.live_id != null && c.position == (short)position select c).ToList();
+                // delete Content position
+                var contentAds = (from c in db.DS_ContentAds where c.content_id == content_id  && c.position == (short)position select c).ToList();
                 foreach (var c in contentAds)
                 {
                     db.DS_TVContentAds.RemoveRange(c.DS_TVContentAds);
@@ -212,16 +212,8 @@ namespace DigitalServices.Services
                     db.SaveChanges();
                 }
 
-                DS_ContentAds content = (from c in db.DS_ContentAds where c.content_id == content_id && c.ad_id == adsInfo.id && c.position == (short)position select c).FirstOrDefault();
-                if (content != null)
-                {
-                    db.DS_TVContentAds.RemoveRange(content.DS_TVContentAds);
-                    db.DS_ContentAds.Remove(content);
-                    db.SaveChanges();
-                }
-
                 //Save
-                saveContntAds(adsInfo,  position,  content_id, interval);
+                saveContntAds(adsInfo, position, content_id, interval,type);
 
                 return true;
             }
@@ -238,7 +230,7 @@ namespace DigitalServices.Services
                 DigitalSignageEntities db = new DigitalSignageEntities();
                 foreach (var item in contentOptionInfo.adsItemList)
                 {
-                    editContentAdsItem(item, contentOptionInfo.position, contentOptionInfo.content_id, contentOptionInfo.interval);
+                    editContentAdsItem(item, contentOptionInfo.position, contentOptionInfo.content_id, contentOptionInfo.interval, contentOptionInfo.type);
                 }
 
                 //var contents = (from c in db.DS_ContentAds where c.content_id == contentOptionInfo.content_id && c.position == (short)contentOptionInfo.position select c).ToList();
@@ -297,6 +289,42 @@ namespace DigitalServices.Services
                     db.SaveChanges();
                 }
 
+
+                return new ResultMessage<string>
+                {
+                    resultSet = null,
+                    result = new Result()
+                    {
+                        status = Result.state.success,
+                        message = "حذف با موفقیت انجام شد"
+                    }
+                };
+            }
+            catch (Exception ex)
+            {
+                return new ResultMessage<string>
+                {
+                    resultSet = null,
+                    result = new Result()
+                    {
+                        status = Result.state.error,
+                        message = ex.Message
+                    }
+                };
+            }
+        }
+
+        public ResultMessage<string> deleteContentsAsdWithPosition(long contentId, int position)
+        {
+            try
+            {
+                DigitalSignageEntities db = new DigitalSignageEntities();
+                var contentAds = (from i in db.DS_ContentAds where i.content_id == contentId && i.position == position select i).ToList();
+                foreach (var item in contentAds)
+                {
+                    db.DS_ContentAds.Remove(item);
+                    db.SaveChanges();
+                }
 
                 return new ResultMessage<string>
                 {
@@ -443,7 +471,7 @@ namespace DigitalServices.Services
                 short typeAds = Convert.ToInt16(type);
                 var additemLis = (from i in db.DS_Ads
                                   join j in db.DS_ContentAds on i.id equals j.ad_id
-                                  where i.type == typeAds && j.content_id == content_id && j.position == position
+                                  where i.type == typeAds && j.content_id == content_id && j.position == position && j.live_id==null
                                   select new { i, j.shuffle, j.position, j.interval }).ToList();
                 foreach (var item in additemLis)
                 {
@@ -455,7 +483,7 @@ namespace DigitalServices.Services
                     newItem.position = (int)item.position;
                     newItem.shuffle = (int)item.shuffle;
                     newItem.companyId = (long)item.i.companyId;
-                    
+
                     newItem.interval = (int)item.interval;
                     newItem.itemList = new List<AdsIemInfoWTO>();
                     var adsDetail = (from j in db.DS_AdItems where j.ad_id == item.i.id select j).ToList();
@@ -502,7 +530,7 @@ namespace DigitalServices.Services
                 DigitalSignageEntities db = new DigitalSignageEntities();
                 var adsitemLis = (from i in db.DS_Ads
                                   join j in db.DS_ContentAds on i.id equals j.ad_id
-                                  where i.passed_minutes < i.max_minutes && j.content_id == content_id
+                                  where i.passed_minutes < i.max_minutes && j.content_id == content_id && j.live_id == null
                                   select new { i, j.shuffle, j.interval, content_ad_id = j.id, j.position }).ToList();
                 foreach (var item in adsitemLis)
                 {
@@ -552,53 +580,7 @@ namespace DigitalServices.Services
             }
         }
 
-        public ResultMessage<List<LiveTVInfoWTO>> loadLiveContentsAds(long content_id)
-        {
-            try
-            {
 
-                List<LiveTVInfoWTO> listSearch = new List<LiveTVInfoWTO>();
-                DigitalSignageEntities db = new DigitalSignageEntities();
-                var additemLis = (from i in db.DS_Lives
-                                  join j in db.DS_ContentAds on i.id equals j.live_id
-                                  where j.content_id == content_id
-                                  select new { i, j.shuffle, j.interval, j.position, content_ad_id = j.id }).ToList();
-                foreach (var item in additemLis)
-                {
-                    LiveTVInfoWTO newItem = new LiveTVInfoWTO();
-                    newItem.title = item.i.title;
-                    newItem.id = (long)item.i.id;
-                    newItem.type = (int)item.i.type;
-                    newItem.position = (int)item.position;
-                    newItem.url = item.i.url;
-                    newItem.channel = item.i.channel;
-                    newItem.content_ad_id = (int)item.content_ad_id;
-                    newItem.interval = (int)item.interval;
-                    listSearch.Add(newItem);
-                }
-
-                return new ResultMessage<List<LiveTVInfoWTO>>
-                {
-                    resultSet = listSearch,
-                    result = new Result()
-                    {
-                        status = Result.state.success,
-                    }
-                };
-            }
-            catch (Exception ex)
-            {
-                return new ResultMessage<List<LiveTVInfoWTO>>
-                {
-                    resultSet = null,
-                    result = new Result()
-                    {
-                        status = Result.state.error,
-                        message = ex.Message
-                    }
-                };
-            }
-        }
 
         public ResultMessage<ContentInfoWTO> searchContentId(string ip, string companyName)
         {
@@ -648,7 +630,7 @@ namespace DigitalServices.Services
         }
         #endregion
 
-        private DS_ContentAds saveContntAds(AdsInfoWTO adsDetail, int position, long content_id, int interval)
+        private DS_ContentAds saveContntAds(AdsInfoWTO adsDetail, int position, long content_id, int interval,int type)
         {
             DigitalSignageEntities db = new DigitalSignageEntities();
             DS_ContentAds content;
@@ -656,7 +638,10 @@ namespace DigitalServices.Services
             {
                 content = new DS_ContentAds();
                 content.content_id = content_id;
+                if(type==0)
                 content.ad_id = adsDetail.id;
+                else
+                    content.live_id = adsDetail.id;
                 // content.interval = adsDetail.interval;
                 content.interval = adsDetail.interval = interval;
                 content.shuffle = (byte)adsDetail.shuffle;

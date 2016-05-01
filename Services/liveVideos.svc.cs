@@ -87,5 +87,159 @@ namespace DigitalServices.Services
             return Convert.ToInt64(string.Format("{0}{1}{2}{3}{4}{5}", dt.Year, dt.Month.ToString().PadLeft(2, '0'), dt.Day.ToString().PadLeft(2, '0'), dt.Hour.ToString().PadLeft(2, '0'), dt.Minute.ToString().PadLeft(2, '0'), dt.Second.ToString().PadLeft(2, '0')));
 
         }
+
+        public ResultMessage<List<LiveTVInfoWTO>> loadLivesTvAds(long content_id, long companyId, int position)
+        {
+            try
+            {
+
+                List<LiveTVInfoWTO> listSearch = new List<LiveTVInfoWTO>();
+                DigitalSignageEntities db = new DigitalSignageEntities();
+                var contentItemList = (from i in db.DS_ContentAds where i.content_id == content_id && i.position == position && i.live_id!=null select i.live_id);
+
+                var additemLis = (from i in db.DS_Lives
+                                  where i.companyId == companyId && !contentItemList.Contains(i.id)
+                                  select i).ToList();
+                foreach (var item in additemLis)
+                {
+                    LiveTVInfoWTO newItem = new LiveTVInfoWTO();
+                    newItem.title = item.title;
+                    newItem.description = item.description;
+                    newItem.id = (long)item.id;
+                    newItem.url = item.url;
+                    newItem.companyId =(long) item.companyId;
+                    newItem.nameId =(int) item.nameId;
+                    newItem.channel = item.channel;
+                    listSearch.Add(newItem);
+                }
+
+                return new ResultMessage<List<LiveTVInfoWTO>>
+                {
+                    resultSet = listSearch,
+                    result = new Result()
+                    {
+                        status = Result.state.success,
+                    }
+                };
+            }
+            catch (Exception ex)
+            {
+                return new ResultMessage<List<LiveTVInfoWTO>>
+                {
+                    resultSet = null,
+                    result = new Result()
+                    {
+                        status = Result.state.error,
+                        message = ex.Message
+                    }
+                };
+            }
+        }
+
+
+
+        public ResultMessage<List<LiveTVInfoWTO>> searchContentsWithLiveItem(long content_id, int position)
+        {
+            try
+            {
+                List<LiveTVInfoWTO> listSearch = new List<LiveTVInfoWTO>();
+                DigitalSignageEntities db = new DigitalSignageEntities();
+
+                var additemLis = (from i in db.DS_Lives
+                                  join j in db.DS_ContentAds on i.id equals j.live_id
+                                  where  j.content_id == content_id && j.position == position
+                                  select new { i,j.content_id, j.shuffle, j.position, j.interval }).ToList();
+                foreach (var item in additemLis)
+                {
+                    LiveTVInfoWTO newItem = new LiveTVInfoWTO();
+                    newItem.title = item.i.title;
+                    newItem.id = (long)item.i.id;
+                   
+                    newItem.content_ad_id = (long)item.content_id;
+                    newItem.position = (int)item.position;
+                    newItem.companyId = (long)item.i.companyId;
+                    newItem.url = item.i.url;
+                    newItem.nameId = (int)item.i.nameId;
+                    newItem.channel = item.i.channel;
+                    newItem.interval = (int)item.interval;
+
+                  
+                    listSearch.Add(newItem);
+                }
+
+                return new ResultMessage<List<LiveTVInfoWTO>>
+                {
+                    resultSet = listSearch,
+                    result = new Result()
+                    {
+                        status = Result.state.success,
+                    }
+                };
+            }
+            catch (Exception ex)
+            {
+                return new ResultMessage<List<LiveTVInfoWTO>>
+                {
+                    resultSet = null,
+                    result = new Result()
+                    {
+                        status = Result.state.error,
+                        message = ex.Message
+                    }
+                };
+            }
+        }
+
+        public ResultMessage<List<LiveTVInfoWTO>> loadLiveContentsAds(long content_id)
+        {
+            try
+            {
+
+                List<LiveTVInfoWTO> listSearch = new List<LiveTVInfoWTO>();
+                DigitalSignageEntities db = new DigitalSignageEntities();
+                var additemLis = (from i in db.DS_Lives
+                                  join j in db.DS_ContentAds on i.id equals j.live_id
+                                  where j.content_id == content_id 
+                                  select new { i, j.shuffle, j.interval, j.position, content_ad_id = j.id }).ToList();
+                foreach (var item in additemLis)
+                {
+                    LiveTVInfoWTO newItem = new LiveTVInfoWTO();
+                    newItem.title = item.i.title;
+                    newItem.id = (long)item.i.id;
+                  
+                    newItem.content_ad_id = (long)item.content_ad_id;
+                    newItem.position = (int)item.position;
+                    newItem.companyId = (long)item.i.companyId;
+                    newItem.url = item.i.url;
+                    newItem.nameId = (int)item.i.nameId;
+                    newItem.channel = item.i.channel;
+                    newItem.interval = (int)item.interval;
+                    listSearch.Add(newItem);
+                }
+
+                return new ResultMessage<List<LiveTVInfoWTO>>
+                {
+                    resultSet = listSearch,
+                    result = new Result()
+                    {
+                        status = Result.state.success,
+                    }
+                };
+            }
+            catch (Exception ex)
+            {
+                return new ResultMessage<List<LiveTVInfoWTO>>
+                {
+                    resultSet = null,
+                    result = new Result()
+                    {
+                        status = Result.state.error,
+                        message = ex.Message
+                    }
+                };
+            }
+        }
+
+      
     }
 }

@@ -12,6 +12,8 @@ namespace DigitalServices.Model
         [DataMember]
         public long id { get; set; }
         [DataMember]
+        public int type { get; set; }
+        [DataMember]
         public long content_id { get; set; }
         [DataMember]
         public int position { get; set; }
