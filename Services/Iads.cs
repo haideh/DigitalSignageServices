@@ -94,9 +94,24 @@ namespace DigitalServices.Services
                          BodyStyle = WebMessageBodyStyle.Bare,
                          UriTemplate = "digital/getAdsWithItemDetail")]
         ResultMessage<List<AdsInfoWTO>> getWidgetAdsWithItemDetail(long companyId);
+        [OperationContract]
+        [WebInvoke(Method = "POST",
+                         ResponseFormat = WebMessageFormat.Json,
+                         RequestFormat = WebMessageFormat.Json,
+                        BodyStyle = WebMessageBodyStyle.Bare,
+                        UriTemplate = "digital/getAllAdsWithItemDetail")]
+        ResultMessage<List<AdsInfoWTO>> getAllAdsWithItemDetail(long companyId);
 
 
+        [OperationContract]
 
+        [WebInvoke(Method = "POST",
+                              ResponseFormat = WebMessageFormat.Json,
+                             // RequestFormat = WebMessageFormat.Json,
+                             BodyStyle = WebMessageBodyStyle.Wrapped,
+                             UriTemplate = "digital/uploadFile")]
+
+        ResultMessage<string> UploadFile(byte[] stream, string filename);
 
         #endregion
 

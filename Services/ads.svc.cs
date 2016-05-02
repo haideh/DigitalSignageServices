@@ -2,6 +2,7 @@
 using DigitalServices.Model;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.ServiceModel;
@@ -41,17 +42,19 @@ namespace DigitalServices.Services
                 db.SaveChanges();
 
                 if (AdsInfo.type == 1)
-                    foreach (string image in AdsInfo.adItemImageFileName.Split(','))
-                        if (!string.IsNullOrWhiteSpace(image))
-                            result = saveAdItemImage(image, (long)ad.id, AdsInfo.companyId);
+                    foreach (var image in AdsInfo.itemList)
+                        if (!string.IsNullOrWhiteSpace(image.file_name))
+                            result = saveAdItemImage(image.file_name, (long)ad.id, AdsInfo.companyId);
 
                 if (AdsInfo.type == 2)
-                    foreach (string video in AdsInfo.adItemVedioFileName.Split(','))
-                        if (!string.IsNullOrWhiteSpace(video))
-                            saveAdItemVideo(video, 0, (long)ad.id , AdsInfo.companyId);
+                    foreach (var video in AdsInfo.itemList)
+                        if (!string.IsNullOrWhiteSpace(video.file_name))
+                            saveAdItemVideo(video.file_name, 0, (long)ad.id, AdsInfo.companyId);
 
                 if (AdsInfo.type == 3)
-                    saveAdItemText(AdsInfo.adItemTitle, AdsInfo.adItemDesc, (long)ad.id, AdsInfo.companyId);
+                    foreach (var text in AdsInfo.itemList)
+                        if (!string.IsNullOrWhiteSpace(text.title))
+                            saveAdItemText(text.title, text.description, (long)ad.id, AdsInfo.companyId);
 
                 if (AdsInfo.type == 4)
                     saveAdItemFeed(AdsInfo.adItemFeedUrl, AdsInfo.adItemFeedTitle, (long)ad.id, AdsInfo.companyId);
@@ -195,6 +198,48 @@ namespace DigitalServices.Services
             {
                 return false;
             }
+        }
+        public ResultMessage<string> UploadFile(byte[] stream, string filename)
+        {
+            try
+            {
+                string FilePath = "";
+                string fileType = filename.Substring(filename.LastIndexOf("."), 4);
+                if (fileType.ToLower() == ".mp4")
+                    FilePath = Path.Combine(HttpContext.Current.Request.PhysicalApplicationPath + "modules/DigitalSignage/data/ads/movies/", filename);
+                else if (fileType.ToLower() == ".jpg")
+                    FilePath = Path.Combine(HttpContext.Current.Request.PhysicalApplicationPath + "modules/DigitalSignage/data/ads/images/", filename);
+
+                int length = 0;
+
+                File.WriteAllBytes(FilePath, stream);
+                return new ResultMessage<string>
+                {
+                    resultSet = filename,
+                    result = new Result()
+                    {
+                        status = Result.state.success,
+                        message = "فایل با موفقیت ذخیره شد",
+                    }
+                };
+
+
+            }
+            catch (Exception)
+            {
+
+                return new ResultMessage<string>
+                {
+                    resultSet = null,
+                    result = new Result()
+                    {
+                        status = Result.state.error,
+                        message = "خطا در ذخیره فایل",
+                    }
+                };
+
+            }
+
         }
 
         #endregion
@@ -411,7 +456,58 @@ namespace DigitalServices.Services
                 };
             }
         }
+        public ResultMessage<List<AdsInfoWTO>> getAllAdsWithItemDetail(long companyId)
+        {
+            try
+            {
+                List<AdsInfoWTO> listSearch = new List<AdsInfoWTO>();
+                DigitalSignageEntities db = new DigitalSignageEntities();
+                var additemLis = (from i in db.DS_Ads where i.companyId == companyId select i).ToList();
+                foreach (var item in additemLis)
+                {
+                    AdsInfoWTO newItem = new AdsInfoWTO();
+                    newItem.title = item.title;
+                    newItem.max_minutes = (int)item.max_minutes;
+                    newItem.id = (long)item.id;
+                    newItem.type = (int)item.type;
+                    newItem.companyId = companyId;
+                    newItem.itemList = new List<AdsIemInfoWTO>();
+                    var adsDetail = (from j in db.DS_AdItems where j.ad_id == item.id select j).ToList();
+                    foreach (var detail in adsDetail)
+                    {
+                        AdsIemInfoWTO newAdsDetail = new AdsIemInfoWTO();
+                        newAdsDetail.title = detail.title;
+                        newAdsDetail.file_name = detail.file_name;
+                        newAdsDetail.id = (long)detail.id;
+                        newAdsDetail.description = detail.description;
+                        newAdsDetail.companyId = companyId;
+                        newItem.itemList.Add(newAdsDetail);
+                    }
+                    listSearch.Add(newItem);
+                }
 
+                return new ResultMessage<List<AdsInfoWTO>>
+                {
+                    resultSet = listSearch,
+                    result = new Result()
+                    {
+                        status = Result.state.success,
+                    }
+                };
+            }
+            catch (Exception ex)
+            {
+                return new ResultMessage<List<AdsInfoWTO>>
+                {
+                    resultSet = null,
+                    result = new Result()
+                    {
+                        status = Result.state.error,
+                        message = ex.Message
+                    }
+                };
+            }
+        }
         public ResultMessage<List<AdsInfoWTO>> getAdsWithItemDetail(string type , long companyId, long content_id, int position)
         {
             try

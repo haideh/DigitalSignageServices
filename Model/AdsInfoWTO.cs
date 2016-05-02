@@ -52,5 +52,16 @@ namespace DigitalServices.Model
         [DataMember]
         public string companyName { get; set; }
 
+        [DataMember]
+        public int nameId { get; set; }
+        [DataMember]
+        public string url { get; set; }
+        [DataMember]
+        public string description { get; set; }
+        [DataMember]
+        public string channel { get; set; }
+
+        [DataMember]
+        public byte[] inputStream { get; set; }
     }
 }
