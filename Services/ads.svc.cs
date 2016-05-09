@@ -89,22 +89,8 @@ namespace DigitalServices.Services
                 DigitalSignageEntities db = new DigitalSignageEntities();
                 DS_AdItems ad = new DS_AdItems();
                 ad.ad_id = ad_id;
-                ad.file_name = file_name;
+                ad.file_name = file_name + ".jpg";
                 ad.companyId = companyId;
-
-                if (System.IO.File.Exists(HttpContext.Current.Request.PhysicalApplicationPath + "/modules/DigitalSignage/data/uploader/" + file_name))
-                {
-                    System.IO.File.Copy(HttpContext.Current.Request.PhysicalApplicationPath + "/modules/DigitalSignage/data/uploader/" + file_name, HttpContext.Current.Request.PhysicalApplicationPath + "/modules/DigitalSignage/data/ads/images/" + file_name);
-                    try
-                    {
-                        System.IO.File.Delete(HttpContext.Current.Request.PhysicalApplicationPath + "/modules/DigitalSignage/data/uploader/" + file_name);
-                    }
-                    catch (Exception)
-                    {
-                    }
-
-                }
-
                 db.DS_AdItems.Add(ad);
                 db.SaveChanges();
                 return true;
@@ -124,22 +110,8 @@ namespace DigitalServices.Services
                 DigitalSignageEntities db = new DigitalSignageEntities();
                 DS_AdItems ad = new DS_AdItems();
                 ad.ad_id = ad_id;
-                ad.file_name = file_name;
+                ad.file_name = file_name + ".mp4";
                 ad.companyId = companyId;
-
-                if (System.IO.File.Exists(HttpContext.Current.Request.PhysicalApplicationPath + "/modules/DigitalSignage/data/uploader/" + file_name))
-                {
-                    System.IO.File.Copy(HttpContext.Current.Request.PhysicalApplicationPath + "/modules/DigitalSignage/data/uploader/" + file_name, HttpContext.Current.Request.PhysicalApplicationPath + "/modules/DigitalSignage/data/ads/movies/" + file_name.Replace(".jpg", ".mp4"));
-                    try
-                    {
-                        System.IO.File.Delete(HttpContext.Current.Request.PhysicalApplicationPath + "/modules/DigitalSignage/data/uploader/" + file_name);
-                    }
-                    catch (Exception)
-                    {
-                    }
-                    ad.file_name = file_name.Replace(".jpg", ".mp4");
-                }
-
                 db.DS_AdItems.Add(ad);
                 db.SaveChanges();
 
@@ -161,7 +133,7 @@ namespace DigitalServices.Services
                 DS_AdItems ad = new DS_AdItems();
                 ad.ad_id = ad_id;
                 ad.title = title;
-                ad.description = body;
+                ad.description = title;
                 ad.companyId = companyId;
 
                 db.DS_AdItems.Add(ad);
@@ -206,13 +178,14 @@ namespace DigitalServices.Services
                 string FilePath = "";
                 string fileType = filename.Substring(filename.LastIndexOf("."), 4);
                 if (fileType.ToLower() == ".mp4")
-                    FilePath = Path.Combine(HttpContext.Current.Request.PhysicalApplicationPath + "modules/DigitalSignage/data/ads/movies/", filename);
+                    FilePath = Path.Combine(HttpRuntime.AppDomainAppPath + "modules/DigitalSignage/data/ads/movies/");
                 else if (fileType.ToLower() == ".jpg")
-                    FilePath = Path.Combine(HttpContext.Current.Request.PhysicalApplicationPath + "modules/DigitalSignage/data/ads/images/", filename);
+                    FilePath = Path.Combine(HttpRuntime.AppDomainAppPath + "modules/DigitalSignage/data/ads/images/");
 
-                int length = 0;
+                if (!Directory.Exists(FilePath))
+                    Directory.CreateDirectory(FilePath);
 
-                File.WriteAllBytes(FilePath, stream);
+                File.WriteAllBytes(FilePath + filename, stream);
                 return new ResultMessage<string>
                 {
                     resultSet = filename,
@@ -225,7 +198,7 @@ namespace DigitalServices.Services
 
 
             }
-            catch (Exception)
+            catch (Exception ex)
             {
 
                 return new ResultMessage<string>
@@ -234,7 +207,7 @@ namespace DigitalServices.Services
                     result = new Result()
                     {
                         status = Result.state.error,
-                        message = "خطا در ذخیره فایل",
+                        message = "خطا در ذخیره فایل" + ex,
                     }
                 };
 
@@ -316,6 +289,106 @@ namespace DigitalServices.Services
                 };
             }
         }
+        public ResultMessage<string> deleteAdsFile(string fileName)
+        {
+            try
+            {
+                string FilePath = "";
+                string fileType = fileName.Substring(fileName.LastIndexOf("."), 4);
+                if (fileType.ToLower() == ".mp4")
+                    FilePath = Path.Combine(HttpRuntime.AppDomainAppPath + "modules/DigitalSignage/data/ads/movies/");
+                else if (fileType.ToLower() == ".jpg")
+                    FilePath = Path.Combine(HttpRuntime.AppDomainAppPath + "modules/DigitalSignage/data/ads/images/");
+                File.Delete(FilePath + fileName);
+
+                return new ResultMessage<string>
+                {
+                    resultSet = null,
+                    result = new Result()
+                    {
+                        status = Result.state.success,
+                        message = "حذف با موفقیت انجام شد",
+                    }
+                };
+            }
+            catch (Exception ex)
+            {
+                return new ResultMessage<string>
+                {
+                    resultSet = null,
+                    result = new Result()
+                    {
+                        status = Result.state.error,
+                        message = ex.Message
+                    }
+                };
+            }
+        }
+
+        public ResultMessage<string> deleteAdsWithDetail(long id)
+        {
+            try
+            {
+                DigitalSignageEntities db = new DigitalSignageEntities();
+                var contentId = (from c in db.DS_ContentAds where c.ad_id == id select c).FirstOrDefault();
+
+                if (contentId == null)
+                {
+                    var adItems = (from a in db.DS_AdItems where a.ad_id == id select a).ToList();
+                    foreach (var item in adItems)
+                    {
+                        try
+                        {
+                            deleteAdsFile(item.file_name);
+                        }
+                        catch { }
+                        db.DS_AdItems.Remove(item);
+                        db.SaveChanges();
+                    }
+
+                    DS_Ads ad = (from a in db.DS_Ads where a.id == id select a).FirstOrDefault();
+                    if (ad != null)
+                    {
+                        db.DS_Ads.Remove(ad);
+                        db.SaveChanges();
+                    }
+
+                }
+                else
+                {
+                    return new ResultMessage<string>
+                    {
+                        resultSet = null,
+                        result = new Result()
+                        {
+                            status = Result.state.success,
+                            message = "  ابتدا محتوای مورد استفاده را حذف نمایید. ",
+                        }
+                    };
+                }
+                return new ResultMessage<string>
+                {
+                    resultSet = null,
+                    result = new Result()
+                    {
+                        status = Result.state.success,
+                        message = "تبلیغ با موفقیت حذف شد",
+                    }
+                };
+            }
+            catch (Exception ex)
+            {
+                return new ResultMessage<string>
+                {
+                    resultSet = null,
+                    result = new Result()
+                    {
+                        status = Result.state.error,
+                        message = ex.Message
+                    }
+                };
+            }
+        }
         #endregion
 
         #region Edit
@@ -359,7 +432,62 @@ namespace DigitalServices.Services
             }
         }
 
-     
+        public ResultMessage<AdsInfoWTO> editAdsWithDetail(long id)
+        {
+            try
+            {
+                DigitalSignageEntities db = new DigitalSignageEntities();
+                AdsInfoWTO adInfo = new AdsInfoWTO();
+                DS_Ads ad = (from a in db.DS_Ads where a.id == id select a).FirstOrDefault();
+                if (ad != null)
+                {
+                    adInfo.title = ad.title;
+
+                    adInfo.type = (short)ad.type;
+                    adInfo.max_minutes = (int)ad.max_minutes;
+                    adInfo.passed_minutes = (int)ad.passed_minutes;
+                    adInfo.companyId = (long)ad.companyId;
+                    adInfo.id = id;
+                    var adsDetail = (from j in db.DS_AdItems where j.ad_id == id select j).ToList();
+                    adInfo.itemList = new List<AdsIemInfoWTO>();
+                    foreach (var detail in adsDetail)
+                    {
+                        AdsIemInfoWTO newAdsDetail = new AdsIemInfoWTO();
+                        newAdsDetail.title = detail.title;
+                        newAdsDetail.file_name = detail.file_name;
+                        newAdsDetail.id = (long)detail.id;
+                        newAdsDetail.description = detail.description;
+                        newAdsDetail.companyId = adInfo.companyId;
+                        adInfo.itemList.Add(newAdsDetail);
+                    }
+
+                }
+
+                return new ResultMessage<AdsInfoWTO>
+                {
+                    resultSet = adInfo,
+                    result = new Result()
+                    {
+                        status = Result.state.success,
+                        message = "تبلیغ با موفقیت ویرایش شد",
+                    }
+                };
+            }
+            catch (Exception ex)
+            {
+                return new ResultMessage<AdsInfoWTO>
+                {
+                    resultSet = null,
+                    result = new Result()
+                    {
+                        status = Result.state.error,
+                        message = ex.Message
+                    }
+                };
+            }
+        }
+
+
         #endregion
 
         #region Search
@@ -462,7 +590,7 @@ namespace DigitalServices.Services
             {
                 List<AdsInfoWTO> listSearch = new List<AdsInfoWTO>();
                 DigitalSignageEntities db = new DigitalSignageEntities();
-                var additemLis = (from i in db.DS_Ads where i.companyId == companyId select i).ToList();
+                var additemLis = (from i in db.DS_Ads where i.companyId == companyId && i.type != 4 && i.type != 5 select i).ToList();
                 foreach (var item in additemLis)
                 {
                     AdsInfoWTO newItem = new AdsInfoWTO();
@@ -508,16 +636,16 @@ namespace DigitalServices.Services
                 };
             }
         }
-        public ResultMessage<List<AdsInfoWTO>> getAdsWithItemDetail(string type , long companyId, long content_id, int position)
+        public ResultMessage<List<AdsInfoWTO>> getAdsWithItemDetail(string type, long companyId, long content_id, int position)
         {
             try
             {
                 List<AdsInfoWTO> listSearch = new List<AdsInfoWTO>();
                 DigitalSignageEntities db = new DigitalSignageEntities();
                 short typeAds = Convert.ToInt16(type);
-                var contentItemList = (from i in db.DS_ContentAds where i.content_id == content_id && i.position == position && i.live_id==null select i.ad_id);
+                var contentItemList = (from i in db.DS_ContentAds where i.content_id == content_id && i.position == position && i.live_id == null select i.ad_id);
 
-                var additemLis = (from i in db.DS_Ads where i.type == typeAds && i.companyId == companyId   && !contentItemList.Contains(i.id) select i).ToList();
+                var additemLis = (from i in db.DS_Ads where i.type == typeAds && i.companyId == companyId && !contentItemList.Contains(i.id) select i).ToList();
                 foreach (var item in additemLis)
                 {
                     AdsInfoWTO newItem = new AdsInfoWTO();
@@ -569,7 +697,7 @@ namespace DigitalServices.Services
             {
                 List<AdsInfoWTO> listSearch = new List<AdsInfoWTO>();
                 DigitalSignageEntities db = new DigitalSignageEntities();
-                var additemLis = (from i in db.DS_Ads where (i.type == 4 || i.type==5) && (i.companyId == companyId || i.companyId == null) select i).ToList();
+                var additemLis = (from i in db.DS_Ads where (i.type == 4 || i.type == 5) && (i.companyId == companyId || i.companyId == null) select i).ToList();
                 foreach (var item in additemLis)
                 {
                     AdsInfoWTO newItem = new AdsInfoWTO();

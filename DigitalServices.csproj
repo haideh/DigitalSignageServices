@@ -63,6 +63,14 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\OtherPrj\DigitalSignage\AllCode\DigitalSignageCode\bin\Newtonsoft.Json.Net35.dll</HintPath>
     </Reference>
+    <Reference Include="PagedList, Version=1.17.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>packages\PagedList.1.17.0.0\lib\net40\PagedList.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="PagedList.Mvc, Version=4.5.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>packages\PagedList.Mvc.4.5.0.0\lib\net40\PagedList.Mvc.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data.Entity" />
     <Reference Include="System.Security" />
@@ -85,6 +93,7 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\PagedList.css" />
     <Content Include="Services\ads.svc" />
     <Content Include="Services\alarms.svc" />
     <Content Include="Services\contents.svc" />
@@ -182,6 +191,7 @@
     <Compile Include="Model\SearcInfoWTO.cs" />
     <Compile Include="Model\StoresInfoWTO.cs" />
     <Compile Include="Model\TvCategoreisInfoWTO.cs" />
+    <Compile Include="Model\TvContentsInfoWTO.cs" />
     <Compile Include="Model\TvsInfoWTO.cs" />
     <Compile Include="Model\UserInfoWTO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -209,8 +219,8 @@
     <Compile Include="Services\Imaps.cs">
       <DependentUpon>maps.svc</DependentUpon>
     </Compile>
-    <Compile Include="Services\Ipermission.cs" >
-	 <DependentUpon>permission.svc</DependentUpon>
+    <Compile Include="Services\Ipermission.cs">
+      <DependentUpon>permission.svc</DependentUpon>
     </Compile>
     <Compile Include="Services\Istores.cs">
       <DependentUpon>stores.svc</DependentUpon>
@@ -286,11 +296,11 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>False</UseIIS>
+          <UseIIS>True</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>14985</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:14985/</IISUrl>
+          <IISUrl>http://localhost:14995/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

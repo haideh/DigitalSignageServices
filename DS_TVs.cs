@@ -35,6 +35,9 @@ namespace DigitalServices
         public Nullable<int> x { get; set; }
         public Nullable<int> y { get; set; }
         public Nullable<decimal> companyId { get; set; }
+        public Nullable<short> registerFlag { get; set; }
+        public string identifyKey { get; set; }
+        public string identifyShortKey { get; set; }
     
         public virtual DS_Alarms DS_Alarms { get; set; }
         public virtual DS_TVCategories DS_TVCategories { get; set; }

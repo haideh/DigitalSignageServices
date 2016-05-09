@@ -91,6 +91,13 @@ namespace DigitalServices.Services
 
         [OperationContract]
         [WebInvoke(Method = "POST",
+                              ResponseFormat = WebMessageFormat.Json,
+                              RequestFormat = WebMessageFormat.Json,
+                             BodyStyle = WebMessageBodyStyle.Bare,
+                             UriTemplate = "digital/loadContentsWithAdsItemDetail_Viewer")]
+        ResultMessage<List<AdsInfoWTO>> loadContentsWithAdsItemDetail_Viewer(long content_id, long lastAlive);
+        [OperationContract]
+        [WebInvoke(Method = "POST",
                          ResponseFormat = WebMessageFormat.Json,
                          RequestFormat = WebMessageFormat.Json,
                         BodyStyle = WebMessageBodyStyle.Bare,

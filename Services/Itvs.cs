@@ -59,7 +59,7 @@ namespace DigitalServices.Services
                                 RequestFormat = WebMessageFormat.Json,
                                BodyStyle = WebMessageBodyStyle.Bare,
                                UriTemplate = "digital/isDirty")]
-        ResultMessage<Boolean> isDirty(long tv_id);
+        ResultMessage<TvsInfoWTO> isDirty(long tv_id);
 
         [OperationContract]
         [WebInvoke(Method = "POST",
@@ -94,6 +94,14 @@ namespace DigitalServices.Services
                             BodyStyle = WebMessageBodyStyle.Bare,
                             UriTemplate = "digital/getTvContentWithIp")]
         ResultMessage<string> getTvContentWithIp(string ip ,long companyId);
+
+        [OperationContract]
+        [WebInvoke(Method = "POST",
+                           ResponseFormat = WebMessageFormat.Json,
+                           RequestFormat = WebMessageFormat.Json,
+                          BodyStyle = WebMessageBodyStyle.Bare,
+                          UriTemplate = "digital/getTvInfo")]
+        ResultMessage<List<TvContentsInfoWTO>> getTvInfo(string key);
 
         #endregion
 

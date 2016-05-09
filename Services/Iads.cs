@@ -27,6 +27,25 @@ namespace DigitalServices.Services
         [OperationContract]
 
         [WebInvoke(Method = "POST",
+                              ResponseFormat = WebMessageFormat.Json,
+                              RequestFormat = WebMessageFormat.Json,
+                             BodyStyle = WebMessageBodyStyle.Bare,
+                             UriTemplate = "digital/editAds")]
+        ResultMessage<string> editAds(string title, string time, long ad_id);
+
+        [OperationContract]
+        [WebInvoke(Method = "POST",
+                           ResponseFormat = WebMessageFormat.Json,
+                           RequestFormat = WebMessageFormat.Json,
+                          BodyStyle = WebMessageBodyStyle.Bare,
+                          UriTemplate = "digital/editAds")]
+        ResultMessage<AdsInfoWTO> editAdsWithDetail(long id);
+
+        
+        #region Delete
+        [OperationContract]
+
+        [WebInvoke(Method = "POST",
                                 ResponseFormat = WebMessageFormat.Json,
                                 RequestFormat = WebMessageFormat.Json,
                                BodyStyle = WebMessageBodyStyle.Bare,
@@ -43,17 +62,22 @@ namespace DigitalServices.Services
                                UriTemplate = "digital/deleteAdsItem")]
 
         ResultMessage<string> deleteAdsItem(long id);
-
         [OperationContract]
 
         [WebInvoke(Method = "POST",
-                              ResponseFormat = WebMessageFormat.Json,
-                              RequestFormat = WebMessageFormat.Json,
-                             BodyStyle = WebMessageBodyStyle.Bare,
-                             UriTemplate = "digital/editAds")]
-        ResultMessage<string> editAds(string title, string time, long ad_id);
+                        ResponseFormat = WebMessageFormat.Json,
+                        RequestFormat = WebMessageFormat.Json,
+                       BodyStyle = WebMessageBodyStyle.Bare,
+                       UriTemplate = "digital/deleteAdsFile")]
+        ResultMessage<string> deleteAdsFile(string fileName);
 
-
+        [WebInvoke(Method = "POST",
+                ResponseFormat = WebMessageFormat.Json,
+                RequestFormat = WebMessageFormat.Json,
+               BodyStyle = WebMessageBodyStyle.Bare,
+               UriTemplate = "digital/deleteAdsWithDetail")]
+        ResultMessage<string> deleteAdsWithDetail(long id);
+        #endregion
         #region Search
         [OperationContract]
         [WebInvoke(Method = "POST",

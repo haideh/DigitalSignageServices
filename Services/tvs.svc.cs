@@ -241,58 +241,79 @@ namespace DigitalServices.Services
             }
         }
 
-        public ResultMessage<Boolean> isDirty(long tv_id)
+        public ResultMessage<TvsInfoWTO> isDirty(long tv_id)
         {
             try
             {
                 DigitalSignageEntities db = new DigitalSignageEntities();
                 DS_TVs tv = (from t in db.DS_TVs where t.id == tv_id select t).FirstOrDefault();
 
-                int currentTime = Convert.ToInt32("1" + DateTime.Now.Hour.ToString().PadLeft(2, '0') + DateTime.Now.Minute.ToString().PadLeft(2, '0'));
-                DS_TVContents content = (from c in db.DS_TVContents where c.tv_id == tv.id && c.startTime < currentTime && c.endTime >= currentTime select c).FirstOrDefault();
-                if (content != null)
-                    if (tv != null)
-                    {
-                        if (tv.isDirty == 1)
-                        {
-                            tv.lastAlive = Aryaban.Engine.Core.Utilities.DateUtils.getCurrentPersianDateTimeAsNumber();
-                            tv.isDirty = 0;
-                            db.SaveChanges();
+                //int currentTime = Convert.ToInt32("1" + DateTime.Now.Hour.ToString().PadLeft(2, '0') + DateTime.Now.Minute.ToString().PadLeft(2, '0'));
+                //DS_TVContents content = (from c in db.DS_TVContents where c.tv_id == tv.id && c.startTime < currentTime && c.endTime >= currentTime select c).FirstOrDefault();
 
-                            return new ResultMessage<Boolean>
-                            {
-                                resultSet = true,
-                                result = new Result()
-                                {
-                                    status = Result.state.success,
-                                }
-                            };
-                        }
+                if (tv != null)
+                {
+
+                    TvsInfoWTO tvs = new TvsInfoWTO();
+                    tvs.content_id = (int)tv.DS_TVContents.FirstOrDefault().content_id;
+                    tvs.lastAlive = (long)tv.lastAlive;
+                    if (tv.isDirty == 1)
+                    {
+                        tvs.isDirty = 1;
 
                         tv.lastAlive = Aryaban.Engine.Core.Utilities.DateUtils.getCurrentPersianDateTimeAsNumber();
+                        tv.isDirty = 0;
                         db.SaveChanges();
+
+                        return new ResultMessage<TvsInfoWTO>
+                        {
+                            resultSet = tvs,
+                            result = new Result()
+                            {
+                                status = Result.state.success,
+                            }
+                        };
                     }
 
-                return new ResultMessage<Boolean>
+                    else
+                    {
+                        tvs.isDirty = 0;
+                        return new ResultMessage<TvsInfoWTO>
+                        {
+                            resultSet = tvs,
+                            result = new Result()
+                            {
+                                status = Result.state.success,
+
+                            }
+
+                        };
+                    }
+
+                }
+
+                return new ResultMessage<TvsInfoWTO>
                 {
-                    resultSet = false,
+
+                    resultSet = null,
                     result = new Result()
                     {
                         status = Result.state.success,
-                        redirectUrl = "none"
+
                     }
                 };
             }
+
             catch (Exception ex)
             {
-                return new ResultMessage<Boolean>
+                return new ResultMessage<TvsInfoWTO>
                 {
-                    resultSet = false,
+                    resultSet = null,
                     result = new Result()
                     {
                         status = Result.state.error,
                         message = ex.Message,
-                        redirectUrl = "none"
+
                     }
                 };
             }
@@ -534,16 +555,72 @@ namespace DigitalServices.Services
                 };
             }
         }
-        public ResultMessage<string> getTvContentWithIp(string ip , long companyId)
+
+        public ResultMessage<List<TvContentsInfoWTO>> getTvInfo(string key)
+        {
+            try
+            {
+                List<TvContentsInfoWTO> listSearch = new List<TvContentsInfoWTO>();
+                DigitalSignageEntities db = new DigitalSignageEntities();
+
+
+                var Tvitem = (from i in db.DS_TVs
+                              join j in db.DS_TVContents on i.id equals j.tv_id
+                              where i.identifyKey == key 
+                              select new { i, j.tv_id, j.content_id, j.startTime, j.endTime }).ToList();
+
+                foreach (var item in Tvitem)
+                {
+                    TvContentsInfoWTO newItem = new TvContentsInfoWTO();
+                    newItem.companyId = (long)item.i.companyId;
+                    newItem.tv_id = (long)item.tv_id;
+                    newItem.content_id = (long)item.content_id;
+                    newItem.startTime = (long)item.startTime;
+                    newItem.endTime = (long)item.endTime;
+                   // newItem.x = (int)item.i.x;
+                   // newItem.y = (int)item.i.y;
+                    newItem.lastAlive = (long)item.i.lastAlive;
+                    newItem.status = (short)item.i.status;
+                    newItem.isDirty = (short)item.i.isDirty;
+                    listSearch.Add(newItem);
+
+                }
+
+                return new ResultMessage<List<TvContentsInfoWTO>>
+                {
+                    resultSet = listSearch,
+                    result = new Result()
+                    {
+                        status = Result.state.success,
+                    }
+                };
+
+
+            }
+            catch (Exception ex)
+            {
+                return new ResultMessage<List<TvContentsInfoWTO>>
+                {
+                    resultSet = null,
+                    result = new Result()
+                    {
+                        status = Result.state.error,
+                        message = ex.Message
+                    }
+                };
+            }
+        }
+
+        public ResultMessage<string> getTvContentWithIp(string ip, long companyId)
         {
             try
             {
                 List<ContentInfoWTO> listSearch = new List<ContentInfoWTO>();
                 DigitalSignageEntities db = new DigitalSignageEntities();
-                var Tvitem = (from t in db.DS_TVs where t.ip == ip && t.companyId== companyId select t).FirstOrDefault();
+                var Tvitem = (from t in db.DS_TVs where t.ip == ip && t.companyId == companyId select t).FirstOrDefault();
                 if (Tvitem != null)
                 {
-                    DS_TVContents content = (from c in db.DS_TVContents where c.tv_id == Tvitem.id && c.companyId== companyId select c).FirstOrDefault();
+                    DS_TVContents content = (from c in db.DS_TVContents where c.tv_id == Tvitem.id && c.companyId == companyId select c).FirstOrDefault();
                     if (content != null)
                     {
                         return new ResultMessage<string>

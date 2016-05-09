@@ -67,6 +67,7 @@
           <Property Name="shuffle" Type="tinyint" />
           <Property Name="secondViewed" Type="int" />
           <Property Name="companyId" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="modifyDate" Type="bigint" />
         </EntityType>
         <EntityType Name="DS_Contents">
           <Key>
@@ -248,6 +249,9 @@
           <Property Name="x" Type="int" />
           <Property Name="y" Type="int" />
           <Property Name="companyId" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="registerFlag" Type="smallint" />
+          <Property Name="identifyKey" Type="nvarchar" MaxLength="50" />
+          <Property Name="identifyShortKey" Type="nvarchar" MaxLength="10" />
         </EntityType>
         <EntityType Name="DS_Users">
           <Key>
@@ -771,6 +775,7 @@
           <NavigationProperty Name="DS_Contents" Relationship="DigitalSignageDBModel.FK_DS_ContentAds_DS_Contents" FromRole="DS_ContentAds" ToRole="DS_Contents" />
           <NavigationProperty Name="DS_Lives" Relationship="DigitalSignageDBModel.FK_DS_ContentAds_DS_Lives" FromRole="DS_ContentAds" ToRole="DS_Lives" />
           <NavigationProperty Name="DS_TVContentAds" Relationship="DigitalSignageDBModel.FK_DS_TVContentAds_DS_ContentAds" FromRole="DS_ContentAds" ToRole="DS_TVContentAds" />
+          <Property Name="modifyDate" Type="Int64" />
         </EntityType>
         <EntityType Name="DS_Contents">
           <Key>
@@ -974,6 +979,9 @@
           <NavigationProperty Name="DS_TVCategories" Relationship="DigitalSignageDBModel.FK_DS_TVs_DS_TVCategories" FromRole="DS_TVs" ToRole="DS_TVCategories" />
           <NavigationProperty Name="DS_TVContentAds" Relationship="DigitalSignageDBModel.FK_DS_TVContentAds_DS_TVs" FromRole="DS_TVs" ToRole="DS_TVContentAds" />
           <NavigationProperty Name="DS_TVContents" Relationship="DigitalSignageDBModel.FK_DS_TVContents_DS_TVs" FromRole="DS_TVs" ToRole="DS_TVContents" />
+          <Property Name="registerFlag" Type="Int16" />
+          <Property Name="identifyKey" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="identifyShortKey" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="DS_Users">
           <Key>
@@ -1301,6 +1309,7 @@
           <EntitySetMapping Name="DS_ContentAds">
             <EntityTypeMapping TypeName="DigitalSignageDBModel.DS_ContentAds">
               <MappingFragment StoreEntitySet="DS_ContentAds">
+                <ScalarProperty Name="modifyDate" ColumnName="modifyDate" />
                 <ScalarProperty Name="companyId" ColumnName="companyId" />
                 <ScalarProperty Name="secondViewed" ColumnName="secondViewed" />
                 <ScalarProperty Name="shuffle" ColumnName="shuffle" />
@@ -1494,6 +1503,9 @@
           <EntitySetMapping Name="DS_TVs">
             <EntityTypeMapping TypeName="DigitalSignageDBModel.DS_TVs">
               <MappingFragment StoreEntitySet="DS_TVs">
+                <ScalarProperty Name="identifyShortKey" ColumnName="identifyShortKey" />
+                <ScalarProperty Name="identifyKey" ColumnName="identifyKey" />
+                <ScalarProperty Name="registerFlag" ColumnName="registerFlag" />
                 <ScalarProperty Name="companyId" ColumnName="companyId" />
                 <ScalarProperty Name="y" ColumnName="y" />
                 <ScalarProperty Name="x" ColumnName="x" />

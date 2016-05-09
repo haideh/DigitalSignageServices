@@ -40,5 +40,9 @@ namespace DigitalServices.Model
         public long companyId { get; set; }
         [DataMember]
         public string companyName { get; set; }
+        [DataMember]
+        public string identifyKey { get; set; }
+        [DataMember]
+        public string identifyShortKey { get; set; }
     }
 }

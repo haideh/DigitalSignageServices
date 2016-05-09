@@ -33,6 +33,7 @@ namespace DigitalServices
         public Nullable<byte> shuffle { get; set; }
         public Nullable<int> secondViewed { get; set; }
         public Nullable<decimal> companyId { get; set; }
+        public Nullable<long> modifyDate { get; set; }
     
         public virtual DS_Ads DS_Ads { get; set; }
         public virtual DS_Contents DS_Contents { get; set; }
